@@ -1,0 +1,291 @@
+<ngx-spinner></ngx-spinner>
+<ngb-accordion [closeOthers]="true" activeIds="instructions1">
+	<ngb-panel id="instructions1" title="New Patient Data/Order">
+		<ng-template ngbPanelContent>
+			<form [formGroup]="SubmitForm">
+				<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+					<div>
+						<nav class="page-breadcrumb mb-0">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a routerLink="">Patients</a></li>
+								<li class="breadcrumb-item active" aria-current="page">New</li>
+							</ol>
+						</nav>
+					</div>
+					<div class="d-flex align-items-center flex-wrap text-nowrap">
+						<button type="button" class="btn btn-outline-secondary mr-2">clear</button>
+						<button type="button" class="btn btn-primary" (click)="submitForm()">Submit</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-1">&nbsp;</div>
+					<div class="col-md-5">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title border-bottom text-primary">Identifier/Location Information</h6>
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label class="control-label">Identifier</label>
+											<input formControlName="identifier" type="text" class="form-control"
+												placeholder="Enter First Name">
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label class="control-label">System</label>
+											<input formControlName="system" type="text" class="form-control"
+												placeholder="Enter First Name">
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label class="control-label">NCPDP</label>
+											<input formControlName="NCPDP" type="text" class="form-control"
+												placeholder="Enter NCPDP">
+										</div>
+									</div>									
+								</div>
+								<div class="card-title border-bottom"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title border-bottom text-primary">Basic Information</h6>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">Prefix</label>
+											<ng-select formControlName="prefix" [items]="titleList" bindLabel="label"
+												bindValue="label" placeholder="Title"></ng-select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">suffix</label>
+											<input formControlName="suffix" type="text" class="form-control"
+												placeholder="Enter Suffix">
+										</div>
+									</div>									
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">First Name</label>
+											<input formControlName="first_name" type="text" class="form-control"
+												placeholder="Enter First Name">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">Middle Name</label>
+											<input formControlName="middle_name" type="text" class="form-control"
+												placeholder="Enter Middle Name">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">Last Name</label>
+											<input formControlName="last_name" type="text" class="form-control"
+												placeholder="Enter Last Name">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">Date of birth</label>
+											<input formControlName="dob" type="date" class="form-control">
+										</div>
+									</div>
+
+								</div>
+								<div class="card-title border-bottom"></div>
+							</div>							
+						</div>
+					</div>
+					<div class="col-md-1">&nbsp;</div>
+				</div>				
+				<div class="row mt-2">
+					<div class="col-md-1">&nbsp;</div>
+					<div class="col-md-10">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title border-bottom text-primary"> Contact Information</h6>
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">System</label>
+											<input formControlName="home_system" type="text" class="form-control"
+												placeholder="Enter System">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Use</label>
+											<input formControlName="home_use" type="text" class="form-control"
+												placeholder="Enter Use">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Value</label>
+											<input formControlName="home_number" type="text" class="form-control"
+												placeholder="Enter Value">
+										</div>
+									</div>
+
+
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">System</label>
+											<input formControlName="work_system" type="text" class="form-control"
+												placeholder="Enter System">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Use</label>
+											<input formControlName="work_use" type="text" class="form-control"
+												placeholder="Enter Use">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Value</label>
+											<input formControlName="work_number" type="text" class="form-control"
+												placeholder="Enter Value">
+										</div>
+									</div>
+
+
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">System</label>
+											<input formControlName="mobile_system" type="text" class="form-control"
+												placeholder="Enter System">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Use</label>
+											<input formControlName="mobile_use" type="text" class="form-control"
+												placeholder="Enter Use">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Value</label>
+											<input formControlName="mobile_number" type="text" class="form-control"
+												placeholder="Enter Value">
+										</div>
+									</div>
+
+								</div>
+								<div class="card-title border-bottom"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">&nbsp;</div>
+				</div>
+				<div class="row mt-2">
+					<div class="col-md-1">&nbsp;</div>
+					<div class="col-md-10">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title border-bottom text-primary"> Address Information</h6>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">Address Line 1</label>
+											<input formControlName="line_1" type="text" class="form-control"
+												placeholder="Enter Address Line 1">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label class="control-label">Address Line 2</label>
+											<input formControlName="line_2" type="text" class="form-control"
+												placeholder="Enter Address Line 2">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">City</label>
+											<input formControlName="city" type="text" class="form-control"
+												placeholder="Enter City name">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">State</label>
+											<ng-select formControlName="state" [items]="stateList" bindLabel="label"
+												bindValue="code" placeholder="State"></ng-select>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Postal Code</label>
+											<input formControlName="postalCode" type="number" class="form-control"
+												placeholder="Enter Postal Code">
+										</div>
+									</div>
+								</div>
+								<div class="card-title border-bottom"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">&nbsp;</div>
+				</div>
+				<div class="row mt-2">
+					<div class="col-md-1">&nbsp;</div>
+					<div class="col-md-10">
+						<div class="card">
+							<div class="card-body">
+								<h6 class="card-title border-bottom text-primary">Pharmacist Information</h6>
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">First Name</label>
+											<input formControlName="pharmacist_first_name" type="text"
+												class="form-control" placeholder="Enter First Name">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Middle Name</label>
+											<input formControlName="pharmacist_middle_name" type="text"
+												class="form-control" placeholder="Enter Middle Name">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Last Name</label>
+											<input formControlName="pharmacist_last_name" type="text"
+												class="form-control" placeholder="Enter Last Name">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Pharmacist suffix</label>
+											<input formControlName="pharmacist_suffix" type="text" class="form-control"
+												placeholder="Enter Pharmacist suffix">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Pharmacist Prefix</label>
+											<input formControlName="pharmacist_prefix" type="text" class="form-control"
+												placeholder="Enter Pharmacist Prefix">
+										</div>
+									</div>									
+									
+								</div>
+								<div class="card-title border-bottom"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1">&nbsp;</div>
+				</div>
+			</form>
+		</ng-template>
+	</ngb-panel>
+</ngb-accordion>
