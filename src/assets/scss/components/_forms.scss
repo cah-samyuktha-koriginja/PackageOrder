@@ -45,7 +45,7 @@ select {
     font-size: $default-font-size;
     line-height: 1.4rem;
     vertical-align: top;
-    margin-bottom: .5rem;
+    margin-bottom: 0 !important;
   }
   &.has-danger {
     .form-control {
