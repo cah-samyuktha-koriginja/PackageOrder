@@ -54,6 +54,12 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<div class="form-group">
+											<label class="control-label">ID</label>
+											<input formControlName="id" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
 											<label class="control-label">Prefix</label>
 											<input formControlName="prefix" type="text" class="form-control">
 										</div>
@@ -123,7 +129,7 @@
 									</div>
 
 
-									<div class="col-sm-4">
+									<!-- <div class="col-sm-4">
 										<div class="form-group">
 											<label class="control-label">System</label>
 											<input formControlName="work_system" type="text" class="form-control">
@@ -140,10 +146,10 @@
 											<label class="control-label">Value</label>
 											<input formControlName="work_number" type="text" class="form-control">
 										</div>
-									</div>
+									</div> -->
 
 
-									<div class="col-sm-4">
+									<!-- <div class="col-sm-4">
 										<div class="form-group">
 											<label class="control-label">System</label>
 											<input formControlName="mobile_system" type="text" class="form-control">
@@ -160,7 +166,7 @@
 											<label class="control-label">Value</label>
 											<input formControlName="mobile_number" type="text" class="form-control">
 										</div>
-									</div>
+									</div> -->
 
 								</div>
 								<div class="card-title border-bottom"></div>
@@ -485,6 +491,27 @@
 												class="form-control">
 										</div>
 									</div>
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label class="control-label">sig</label>
+											<input formControlName="medication_dispense_sig" type="text"
+												class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label class="control-label">warning</label>
+											<input formControlName="medication_dispense_warning" type="text"
+												class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label class="control-label">DispenseLineID</label>
+											<input formControlName="medication_dispense_dispenseLineid" type="text"
+												class="form-control">
+										</div>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
@@ -621,13 +648,13 @@
 											<div class="card-body">
 												<h6 class="card-title border-bottom text-primary">Dosage 1</h6>
 												<div class="row">
-													<div class="col-sm-12">
+													<!-- <div class="col-sm-12">
 														<div class="form-group">
 															<label class="control-label">Text</label>
 															<input formControlName="dosage_instructions_1_text"
 																type="text" class="form-control">
 														</div>
-													</div>
+													</div> -->
 													<div class="col-sm-12">
 														<div class="form-group">
 															<label class="control-label">asNeeded Boolean</label>
@@ -636,14 +663,14 @@
 																type="text" class="form-control">
 														</div>
 													</div>
-													<div class="col-sm-12">
+													<!-- <div class="col-sm-12">
 														<div class="form-group">
 															<label class="control-label">additional Instruction</label>
 															<input
 																formControlName="dosage_instructions_1_additionalInstruction"
 																type="text" class="form-control">
 														</div>
-													</div>
+													</div> -->
 													<div class="card">
 														<div class="card-body">
 															<h6 class="card-title border-bottom text-primary">Dose
@@ -708,8 +735,8 @@
 																</div>
 																<div class="col-sm-6">
 																	<div class="form-group">
-																		<label class="control-label">Time Of Day
-																			1</label>
+																		<label class="control-label">Time 1 Of Day
+																			</label>
 																		<input
 																			formControlName="dosage_instructions_1_timing_timeOfDay_1"
 																			type="text" class="form-control">
@@ -717,8 +744,8 @@
 																</div>
 																<div class="col-sm-6">
 																	<div class="form-group">
-																		<label class="control-label">Time Of Day
-																			2</label>
+																		<label class="control-label">Time 2 Of Day
+																			</label>
 																		<input
 																			formControlName="dosage_instructions_1_timing__timeOfDay_2"
 																			type="text" class="form-control">
@@ -738,13 +765,13 @@
 											<div class="card-body">
 												<h6 class="card-title border-bottom text-primary">Dosage 2</h6>
 												<div class="row">
-													<div class="col-sm-12">
+													<!-- <div class="col-sm-12">
 														<div class="form-group">
 															<label class="control-label">Text</label>
 															<input formControlName="dosage_instructions_2_text"
 																type="text" class="form-control">
 														</div>
-													</div>
+													</div> -->
 													<div class="col-sm-12">
 														<div class="form-group">
 															<label class="control-label">asNeeded Boolean</label>
@@ -753,15 +780,15 @@
 																type="text" class="form-control">
 														</div>
 													</div>
-													<div class="col-sm-6">
+													<!-- <div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label">additional Instruction 1</label>
 															<input
 																formControlName="dosage_instructions_2_additionalInstruction_1"
 																type="text" class="form-control">
 														</div>
-													</div>
-													<div class="col-sm-6">
+													</div> -->
+													<!-- <div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label">additional Instruction 2</label>
 															<input
@@ -784,7 +811,7 @@
 																formControlName="dosage_instructions_2_additionalInstruction_4"
 																type="text" class="form-control">
 														</div>
-													</div>													
+													</div>													 -->
 													<div class="card">
 														<div class="card-body">
 															<h6 class="card-title border-bottom text-primary">Dose
@@ -849,8 +876,8 @@
 																</div>
 																<div class="col-sm-6">
 																	<div class="form-group">
-																		<label class="control-label">Time Of Day
-																			1</label>
+																		<label class="control-label">Time 1 Of Day
+																			</label>
 																		<input
 																			formControlName="dosage_instructions_2_timing_timeOfDay_1"
 																			type="text" class="form-control">
@@ -858,8 +885,8 @@
 																</div>
 																<div class="col-sm-6">
 																	<div class="form-group">
-																		<label class="control-label">Time Of Day
-																			2</label>
+																		<label class="control-label">Time 2 Of Day
+																			</label>
 																		<input
 																			formControlName="dosage_instructions_2_timing__timeOfDay_2"
 																			type="text" class="form-control">
@@ -873,7 +900,7 @@
 												<div class="card-title border-bottom"></div>
 											</div>
 										</div>
-									</div>
+									</div> 
 								</div>
 								<div class="card-title border-bottom"></div>
 							</div>

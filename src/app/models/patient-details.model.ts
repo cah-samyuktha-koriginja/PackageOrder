@@ -3,7 +3,8 @@ export class PatientDetails {
     location = new location();
     patient = new patient();
     Pharmacist = new Pharmacist();
-    MedicationOrder: Array<MedicationOrder> = [new MedicationOrder()];
+    //MedicationOrder: Array<MedicationOrder> = [new MedicationOrder()];
+    MedicationOrder = new MedicationOrder();
 }
 export class focus {
     identifier: string = null;
@@ -13,8 +14,10 @@ export class location {
     NCPDP: number = null;
 }
 export class patient {
+    id:string=null;
     name = new Name();
-    telecom: Array<telecom> = [new telecom(), new telecom(), new telecom()];
+    //telecom: Array<telecom> = [new telecom(), new telecom(), new telecom()];
+    telecom: Array<telecom> = [new telecom()];
     address = new Address();
     birthdate: string = null;
 }
@@ -46,8 +49,20 @@ export class name {
     suffix: string = null;
 }
 export class MedicationOrder {
+    manifestId: string = null;
+    totalSyncedRX =1;
+    dateNeedBy: string = null;
+
+    lines: Array<lines> = [new lines()];
+
+    // MedicationRequest = new MedicationRequest();
+    // MedicationDispense = new MedicationDispense();
+}
+export class lines{
+    authorizingPrescription = new authorizingPrescription();
     MedicationRequest = new MedicationRequest();
     MedicationDispense = new MedicationDispense();
+
 }
 export class MedicationRequest {
     authorOn: string = null;
@@ -68,12 +83,24 @@ export class medicationCodeableConcept {
     code: string = null;
 }
 export class MedicationDispense {
-    authorizingPrescription = new authorizingPrescription();
+    dispenseLineid: string = null;
+    originalFillDate: string = null;
+    dispenseStartDate: string = null;
+    dispenseRefillNumber: string = null;
+    refillsRemaining: string = null;
+    refillMessage: string = null;
+    orderType: string = null;
+    RXSyncSeq: string = null;
+
+    //authorizingPrescription = new authorizingPrescription();
     medicationCodeableConcept: Array<medicationCodeableConcept> = [new medicationCodeableConcept()];
     substitution = new substitution();
     daysSupply: string = null;
     quantity: string = null;
-    extension = new extension();
+
+    sig: string = null;
+    warning = new Array();
+    //extension = new extension();
     dosageInstruction: Array<dosageInstruction> = [new dosageInstruction(),new dosageInstruction()];
 }
 
@@ -83,23 +110,23 @@ export class authorizingPrescription {
 export class substitution {
     wasSubstituted: string = 'false';
 }
-export class extension {
-    dateNeedBy: string = null;
-    originalFillDate: string = null;
-    dispenseStartDate: string = null;
-    dispenseRefillNumber: string = null;
-    refillsRemaining: string = null;
-    refillMessage: string = null;
-    manifestId: string = null;
-    orderType: string = null;
-    totalSyncedRX: string = null;
-    RXSyncSeq: string = null;
-}
+// export class extension {
+//     dateNeedBy: string = null;
+//     originalFillDate: string = null;
+//     dispenseStartDate: string = null;
+//     dispenseRefillNumber: string = null;
+//     refillsRemaining: string = null;
+//     refillMessage: string = null;
+//     manifestId: string = null;
+//     orderType: string = null;
+//     totalSyncedRX: string = null;
+//     RXSyncSeq: string = null;
+// }
 export class dosageInstruction {
-    text: string = null;
+    //text: string = null;
     asNeededBoolean: string = 'false';
     doseQuantity = new doseQuantity();
-    additionalInstruction: Array<additionalInstruction> = [new additionalInstruction()];
+    //additionalInstruction: Array<additionalInstruction> = [new additionalInstruction()];
     timing: Array<timing> = [new timing()];
 }
 export class additionalInstruction {
