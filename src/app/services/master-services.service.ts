@@ -32,9 +32,9 @@ export class MasterServicesService {
 }
 
 
-  postPatient(request, token) {    
+  postPatient(request, token) {
     console.log(token)
-    const HeaderData = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization':token,'Access-Control-Allow-Origin':'*', 'Access-Control-Allow-Credentials': 'true' }) };
+    const HeaderData = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization':token }) };
     console.log(HeaderData.headers)
     console.log(request)
     return this._http.post(this.IoTAPI , request, HeaderData);
