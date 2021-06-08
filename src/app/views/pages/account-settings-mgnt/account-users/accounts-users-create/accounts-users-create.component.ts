@@ -34,8 +34,8 @@ export class AccountsUsersCreateComponent implements OnInit {
     //   this.token=data;
     //   console.log(this.token);
     // });
-    this._APIMasters.getToken().subscribe((response: any) => {      
-      
+    this._APIMasters.getToken().subscribe((response: any) => {
+
       this.token=response.access_token;
       this.token="Bearer "+this.token;
       console.log(this.token)
@@ -74,8 +74,8 @@ export class AccountsUsersCreateComponent implements OnInit {
       pharmacist_suffix: [''],
       authorOn: ['2020-12-06T13:23:30Z'],
       validityPeriodEnd: ['2021-12-06T13:23:30Z'],
-      requestor_medication_code: [''],
-      requestor_medication_system: [''],
+      requestor_medication_system: ['http://hl7.org/fhir/sid/ndc'],
+      requestor_medication_code: ['67877-0321-05'],
       requestor_home_number: ['(313)309-4225'],
       requestor_home_use: ['work'],
       requestor_home_system: ['phone'],
@@ -90,55 +90,55 @@ export class AccountsUsersCreateComponent implements OnInit {
       requestor_first_name: ['Mary'],
       requestor_suffix: [''],
       requestor_prefix: ['Dr.'],
-      medication_dispense_daysSupply: ['30'],
-      medication_dispense_quantity: ['90'],
-      medication_dispense_authorizingPrescription: [''],
-      medication_dispense_substitution: ['false'],
+      medication_dispense_daysSupply: [30],
+      medication_dispense_quantity: [90],
+      medication_dispense_authorizingPrescription: ['202105241557'],
+      medication_dispense_substitution: [false],
       medication_dispense_sig: ['TAKE 1 PILL IN THE MORNING, 2 PILLS AT NIGHT'],
       medication_dispense_warning: ['WARNING1'],
-      medication_dispense_dateNeedBy: [''],
+      medication_dispense_dateNeedBy: ['2021-06-15T13:23:00Z'],
       medication_dispense_originalFillDate: ['2020-08-01T12:23:00Z'],
       medication_dispense_dispenseStartDate: ['2021-03-11T00:00:00Z'],
-      medication_dispense_dispenseRefillNumber: ['4'],
-      medication_dispense_refillsRemaining: ['3'],
+      medication_dispense_dispenseRefillNumber: [4],
+      medication_dispense_refillsRemaining: [3],
       medication_dispense_refillMessage: [''],
-      medication_dispense_manifestId: [''],
+      medication_dispense_manifestId: ['9901'],
       medication_dispense_orderType: ['ATP'],
-      medication_dispense_totalSyncedRX: [''],
-      medication_dispense_RXSyncSeq: ['1'],
+      medication_dispense_totalSyncedRX: 1,
+      medication_dispense_RXSyncSeq: [1],
       medication_dispense_medication_system: ['http://hl7.org/fhir/sid/ndc'],
-      medication_dispense_medication_code: ['67877-0321-05'],      
+      medication_dispense_medication_code: ['67877-0321-05'],
       medication_dispense_dispenseLineid: ['ABC999'],
 
 
 
       //dosage_instructions_1_text: [''],
-      dosage_instructions_1_asNeededBoolean: ['false'],
+      dosage_instructions_1_asNeededBoolean: [false],
       //dosage_instructions_1_additionalInstruction: [''],
-      dosage_instructions_1_dose_quantity_value: ['1'],
+      dosage_instructions_1_dose_quantity_value: [1],
       dosage_instructions_1_dose_quantity_unit: ['TAB'],
-      dosage_instructions_1_timing_frequency: ['1'],
-      dosage_instructions_1_timing_period: ['1'],
+      dosage_instructions_1_timing_frequency: [1],
+      dosage_instructions_1_timing_period: [1],
       dosage_instructions_1_timing_periodUnit: ['d'],
-      dosage_instructions_1_timing_count: ['30'],
+      dosage_instructions_1_timing_count: [30],
       dosage_instructions_1_timing_timeOfDay_1: ['08:00'],
       dosage_instructions_1_timing__timeOfDay_2: [''],
-      
-      
-      
+
+
+
       //dosage_instructions_2_text: [''],
-      dosage_instructions_2_asNeededBoolean: ['false'],
+      dosage_instructions_2_asNeededBoolean: [false],
       //dosage_instructions_2_additionalInstruction_1: [''],
       // dosage_instructions_2_additionalInstruction_2: [''],
       // dosage_instructions_2_additionalInstruction_3: [''],
       // dosage_instructions_2_additionalInstruction_4: [''],
 
-      dosage_instructions_2_dose_quantity_value: ['2'],
+      dosage_instructions_2_dose_quantity_value: [2],
       dosage_instructions_2_dose_quantity_unit: ['TAB'],
-      dosage_instructions_2_timing_frequency: ['1'],
-      dosage_instructions_2_timing_period: ['1'],
+      dosage_instructions_2_timing_frequency: [1],
+      dosage_instructions_2_timing_period: [1],
       dosage_instructions_2_timing_periodUnit: ['d'],
-      dosage_instructions_2_timing_count: ['30'],
+      dosage_instructions_2_timing_count: [30],
       dosage_instructions_2_timing_timeOfDay_1: ['20:00'],
       dosage_instructions_2_timing__timeOfDay_2: [''],
 
@@ -205,13 +205,16 @@ export class AccountsUsersCreateComponent implements OnInit {
     this.MedicationDispense.daysSupply = requestObj.medication_dispense_daysSupply;
     this.MedicationDispense.quantity = requestObj.medication_dispense_quantity;
     this.MedicationDispense.sig = requestObj.medication_dispense_sig;
-    this.MedicationDispense.warning = requestObj.medication_dispense_warning;
+    this.MedicationDispense.warning = [
+      "WARNING1",
+      "WARNING2"
+  ];
 
     //this.MedicationDispense.authorizingPrescription.value = requestObj.medication_dispense_authorizingPrescription;
     this.MedicationDispense.substitution.wasSubstituted = requestObj.medication_dispense_substitution;
 
     //this.MedicationDispense.extension.dateNeedBy = requestObj.medication_dispense_dateNeedBy;
-    
+
     this.MedicationDispense.dispenseLineid = requestObj.medication_dispense_dispenseLineid;
     this.MedicationDispense.originalFillDate = requestObj.medication_dispense_originalFillDate;
     this.MedicationDispense.dispenseStartDate = requestObj.medication_dispense_dispenseStartDate;
@@ -271,9 +274,10 @@ export class AccountsUsersCreateComponent implements OnInit {
     this._APIMasters.postPatient(this.PatientDetailsForm,this.token).subscribe(data => {
 
       //this.ngOnInit();
+      console.log(data);
     }, error => { this.LoadingScreen(false); });
     //this.ngOnInit();
-    
+
   }
   LoadingScreen(e: any) { if (e) { this.spinner.show(); } else { this.spinner.hide(); } }
 }
