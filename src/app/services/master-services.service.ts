@@ -15,11 +15,12 @@ export class MasterServicesService {
 
   generatedToken:any;
   IoTAPI: string = environment.API_URL;
+  //IoTAPI: string ='';
   constructor(private _http: HttpClient) { }
 
   getToken(){
   this.httpOptions['headers'] = this.httpOptions.headers.set('Authorization', 'Basic SjJhZXlZMDFYVXF6SlF3cllIYTQ3RDhHbjd1c0N2UTY6b21pdXNlcTVIVE1WMFR5WQ====');
-  const url = "https://api.stage.cardinalhealth.com/oauth2/v2/token/jwttoken?grant_type=client_credentials";
+  const url = "https://api.dev.cardinalhealth.com/oauth2/v2/token/jwttoken?grant_type=client_credentials";
   console.log(this.httpOptions.headers)
   return this._http.post(url, null, this.httpOptions).pipe(
     map((response: any) => {
@@ -33,6 +34,7 @@ export class MasterServicesService {
 
 
   postPatient(request, token) {
+    console.log("post method")
     console.log(token)
     const HeaderData = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization':token }) };
     console.log(HeaderData.headers)

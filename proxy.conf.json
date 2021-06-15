@@ -1,6 +1,6 @@
 {
     "/wbd/order/api/v1/compliancePackageOrder/save": {
-      "target": "https://api.stage.cardinalhealth.com",
+      "target": "https://api.dev.cardinalhealth.com",
       "secure": false,
       "changeOrigin": true,
       "logLevel": "info"
