@@ -1,9 +1,9 @@
 {
-  "name": "patientform",
+  "name": "wbd-support-order-placing",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
