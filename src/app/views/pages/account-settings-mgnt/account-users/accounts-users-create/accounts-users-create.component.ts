@@ -27,7 +27,6 @@ export class AccountsUsersCreateComponent implements OnInit {
     this.initiateSubmitForm();
   }
   ngOnInit(): void {
-    //this._APIMasters.tokenService().subscribe(data => { this.token=data; });
     this._APIMasters.getToken().subscribe((response: any) => {
 
       this.token=response.access_token;
@@ -35,7 +34,6 @@ export class AccountsUsersCreateComponent implements OnInit {
       console.log(this.token)
      });
     this.addLineDetails();
-    // this.addDosageDetails();
   }
   initiateSubmitForm() {
     this.SubmitForm = this._formBuilder.group({
@@ -259,7 +257,6 @@ export class AccountsUsersCreateComponent implements OnInit {
     //Line Details Obj Defining Ends
 
     this._APIMasters.postPatient(this.PatientDetailsForm, this.token).subscribe(res => {
-      console.log(res);
       this.responseData=res;
       this.statusMsg=this.responseData.status.message;
      }, error => { this.LoadingScreen(false); });
