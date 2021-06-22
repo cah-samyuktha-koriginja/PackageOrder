@@ -22,6 +22,8 @@ export class AccountsUsersCreateComponent implements OnInit {
 
   statusMsg:any='';
   responseData:any;
+  public showMsg: boolean = true;  
+  response: any;
 
   constructor(private spinner: NgxSpinnerService,
     private _formBuilder: FormBuilder,
@@ -29,15 +31,14 @@ export class AccountsUsersCreateComponent implements OnInit {
     this.initiateSubmitForm();
   }
   ngOnInit(): void {
-    this._APIMasters.getToken().subscribe((response: any) => {
-
-      this.token=response.access_token;
-      this.token="Bearer "+this.token;
-      console.log(this.token)
-     });
+    this.refreshToken();
     this.addLineDetails();
   }
   initiateSubmitForm() {
+    this.showMsg=true;
+    this.statusMsg='';
+    this.response={ status: 100, statusText: 'Pending', colorCode:'info' };
+
     this.SubmitForm = this._formBuilder.group({
       identifier: ['af7816a4-3b87-41c4-91d5-f4f7a0369099'],
       NCPDP: ['4583337'],
@@ -65,7 +66,7 @@ export class AccountsUsersCreateComponent implements OnInit {
 
       medication_dispense_manifestId: ['9901'],
       medication_dispense_totalSyncedRX: 1,
-      medication_dispense_dateNeedBy: ['2021-06-15T13:23:00Z'],
+      medication_dispense_dateNeedBy: ['2021-07-15T13:23:00Z'],
       lineDetails: this._formBuilder.array([]),
     });
   }
@@ -109,7 +110,7 @@ export class AccountsUsersCreateComponent implements OnInit {
       mDispanse_concept_code: '67877-0321-05',
 
       dosageDetails: this._formBuilder.array([this.newDosageDetails()]),
-      warningDetails: this._formBuilder.array([this.newWarningDetails(), this.newWarningDetails()]),
+      warningDetails: this._formBuilder.array([this.newWarningDetails()]),
     })
   }
   addLineDetails() {
@@ -181,7 +182,7 @@ export class AccountsUsersCreateComponent implements OnInit {
 
   //Time Of Day Details Form Starts Here
   getTimeOfDayDetails(formDat) { return formDat.controls.timeOfDay.controls; }
-  newTimeOfDayDetails(): FormGroup { return this._formBuilder.group({ timeOfDayDetails: '' }) };
+  newTimeOfDayDetails(): FormGroup { return this._formBuilder.group({ timeOfDayDetails: '08:00' }) };
   addTimeOfDayDetails(i, j, k) {
     const control_1 = <FormArray>this.lineDetails.controls[i].get('dosageDetails');
     const control_2 = <FormArray>control_1.controls[j].get('timingDetails');
@@ -194,6 +195,15 @@ export class AccountsUsersCreateComponent implements OnInit {
   }
   //Time Of Day Details Form Ends Here  
 
+  refreshToken(){
+    //generate token
+    this._APIMasters.getToken().subscribe((response: any) => {
+
+      this.token=response.access_token;
+      this.token="Bearer "+this.token;
+      console.log(this.token)
+     });
+}
 
   submitForm() {
     const requestObj = this.SubmitForm.value;
@@ -221,7 +231,9 @@ export class AccountsUsersCreateComponent implements OnInit {
     this.PatientDetailsForm.Pharmacist.name.prefix = requestObj.pharmacist_prefix;
     this.PatientDetailsForm.Pharmacist.name.suffix = requestObj.pharmacist_suffix;
     this.PatientDetailsForm.Pharmacist.name.family = requestObj.pharmacist_last_name;
-    this.PatientDetailsForm.Pharmacist.name.given.push(requestObj.pharmacist_first_name);
+    this.PatientDetailsForm.Pharmacist.name.given=[];
+    requestObj.pharmacist_first_name ? this.PatientDetailsForm.Pharmacist.name.given.push(requestObj.pharmacist_first_name) : '';
+
     requestObj.pharmacist_middle_name ? this.PatientDetailsForm.Pharmacist.name.given.push(requestObj.pharmacist_middle_name) : '';
 
 
@@ -301,7 +313,13 @@ export class AccountsUsersCreateComponent implements OnInit {
     this._APIMasters.postPatient(this.PatientDetailsForm, this.token).subscribe(res => {
       this.responseData=res;
       this.statusMsg=this.responseData.status.message;
-     }, error => { this.LoadingScreen(false); });
+
+      var self=this; setTimeout(() => { self.showMsg = false;this.initiateSubmitForm(); }, 5000); 
+     }, error => { 
+     var self=this; setTimeout(() => { self.showMsg = false;  this.initiateSubmitForm();}, 5000);
+     this.response = { status: error.status, statusText: error.statusText, colorCode:'danger' };
+    
+     this.LoadingScreen(false); });
   }
   LoadingScreen(e: any) { if (e) { this.spinner.show(); } else { this.spinner.hide(); } }
 }

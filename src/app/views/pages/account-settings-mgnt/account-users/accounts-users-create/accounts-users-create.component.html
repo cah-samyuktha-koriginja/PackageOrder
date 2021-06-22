@@ -8,9 +8,13 @@
 			</ol>
 		</nav>
 	</div>
-	<div *ngIf="statusMsg"style=" color: #059; background-color: #BEF;margin: 10px 0;  padding: 10px; border-radius: 3px 3px 3px 3px;">{{statusMsg}}</div>
+
+	<div *ngIf="showMsg">
+	<div *ngIf="statusMsg" style=" color: #059; background-color: #BEF;margin: 10px 0;  padding: 10px; border-radius: 3px 3px 3px 3px;">{{statusMsg}}</div>
+	<ngb-alert [dismissible]="false" [type]="response.colorCode" *ngIf="response.status!=100"> {{response.statusText}} </ngb-alert>
+</div>
 	<div class="d-flex align-items-center flex-wrap text-nowrap">
-		<button type="button" class="btn btn-outline-secondary mr-2">clear</button>
+		<button type="button" class="btn btn-outline-secondary mr-2" (click)="refreshToken()">Refresh Token</button>
 		<button type="button" class="btn btn-primary" (click)="submitForm()">Submit</button>
 	</div>
 </div>
@@ -30,13 +34,23 @@
 						</div>
 						<div class="col-sm-12">
 							<div class="form-group">
-								<label class="control-label">System</label>
+								<label class="control-label">System
+									<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+								</label>
 								<input formControlName="system" type="text" class="form-control">
 							</div>
 						</div>
 						<div class="col-sm-12">
 							<div class="form-group">
-								<label class="control-label">NCPDP</label>
+								<label class="control-label">NCPDP
+									<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+								</label>
 								<input formControlName="NCPDP" type="text" class="form-control">
 							</div>
 						</div>
@@ -51,7 +65,12 @@
 					<div class="row">
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="control-label">ID</label>
+								<label class="control-label">ID
+									<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+								</label>
 								<input formControlName="id" type="text" class="form-control">
 							</div>
 						</div>
@@ -69,7 +88,12 @@
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="control-label">First Name</label>
+								<label class="control-label">First Name
+									<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+								</label>
 								<input formControlName="first_name" type="text" class="form-control">
 							</div>
 						</div>
@@ -81,7 +105,12 @@
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="control-label">Last Name</label>
+								<label class="control-label">Last Name
+									<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+								</label>
 								<input formControlName="last_name" type="text" class="form-control">
 							</div>
 						</div>
@@ -176,7 +205,12 @@
 					<div class="row">
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="control-label">First Name</label>
+								<label class="control-label">First Name
+									<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+								</label>
 								<input formControlName="pharmacist_first_name" type="text" class="form-control">
 							</div>
 						</div>
@@ -188,7 +222,12 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="control-label">Last Name</label>
+								<label class="control-label">Last Name
+									<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+								</label>
 								<input formControlName="pharmacist_last_name" type="text" class="form-control">
 							</div>
 						</div>
@@ -226,7 +265,12 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label class="control-label">totalSyncedRX</label>
+								<label class="control-label">totalSyncedRX
+									<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+								</label>
 								<input formControlName="medication_dispense_totalSyncedRX" type="text"
 									class="form-control">
 							</div>
@@ -255,19 +299,32 @@
 										<div class="row">
 											<div class="col-sm-4">
 												<div class="form-group">
-													<label class="control-label">authorizingPrescription</label>
+													<label class="control-label">authorizingPrescription
+														<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+													</label>
 													<input formControlName="authorizingPrescription" class="form-control">
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group">
-													<label class="control-label">authorOn</label>
+													<label class="control-label">authorOn
+														<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+													</label>
 													<input formControlName="authorOn" class="form-control">
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group">
-													<label class="control-label">Validity Period end</label>
+													<label class="control-label">Validity Period end<span  style="color: red;
+														font-weight: bold;
+														margin-left: 3px;
+														font-size: 1.2em;">*</span></label>
 													<input formControlName="validityPeriodEnd" class="form-control">
 												</div>
 											</div>
@@ -432,7 +489,12 @@
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label class="control-label">orderType</label>
+															<label class="control-label">orderType
+																<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+															</label>
 															<input class="form-control" formControlName="mDispanse_orderType">
 														</div>
 													</div>			
@@ -445,19 +507,34 @@
 													
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label class="control-label">RXSyncSeq</label>
+															<label class="control-label">RXSyncSeq
+																<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+															</label>
 															<input class="form-control" formControlName="mDispanse_RXSyncSeq" >
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label class="control-label">Days Supply</label>
+															<label class="control-label">Days Supply
+																<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+															</label>
 															<input class="form-control" formControlName="mDispanse_daysSupply">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label class="control-label">Quantity</label>
+															<label class="control-label">Quantity
+																<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+															</label>
 															<input class="form-control" formControlName="mDispanse_quantity">
 														</div>
 													</div>
@@ -469,7 +546,12 @@
 													</div>
 													<div class="col-sm-12">
 														<div class="form-group">
-															<label class="control-label">sig</label>
+															<label class="control-label">sig
+																<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+															</label>
 															<input class="form-control" formControlName="mDispanse_sig">
 														</div>
 													</div>
@@ -484,7 +566,12 @@
 															</div>
 															<div class="col-sm-6">
 																<div class="form-group">
-																	<label class="control-label">Code</label>
+																	<label class="control-label">Code
+																		<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+																	</label>
 																	<input class="form-control" formControlName="mDispanse_concept_code">
 																</div>
 															</div>
@@ -569,14 +656,23 @@
 																					<div class="col-sm-3">
 																						<div class="form-group">
 																							<label
-																								class="control-label">Frequency</label>
+																								class="control-label">Frequency
+																								<span  style="color: red;
+																								font-weight: bold;
+																								margin-left: 3px;
+																								font-size: 1.2em;">*</span></label>
 																							<input class="form-control"
 																								formControlName="timing_frequency">
 																						</div>
 																					</div>
 																					<div class="col-sm-3">
 																						<div class="form-group">
-																							<label class="control-label">Period</label>
+																							<label class="control-label">Period
+																								<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+																							</label>
 																							<input class="form-control"
 																								formControlName="timing_period">
 																						</div>
@@ -584,14 +680,23 @@
 																					<div class="col-sm-3">
 																						<div class="form-group">
 																							<label class="control-label">Period
-																								Unit</label>
+																								Unit
+																								<span  style="color: red;
+																								font-weight: bold;
+																								margin-left: 3px;
+																								font-size: 1.2em;">*</span></label>
 																							<input class="form-control"
 																								formControlName="timing_periodUnit">
 																						</div>
 																					</div>
 																					<div class="col-sm-3">
 																						<div class="form-group">
-																							<label class="control-label">count</label>
+																							<label class="control-label">count
+																								<span  style="color: red;
+									font-weight: bold;
+									margin-left: 3px;
+									font-size: 1.2em;">*</span>
+																							</label>
 																							<input class="form-control"
 																								formControlName="timing_count">
 																						</div>
@@ -605,7 +710,10 @@
 																					<div class="col-sm-3" [formGroupName]="l" *ngFor="let timeOfDayDet of getTimeOfDayDetails(timingDet); let l=index">
 																						<div class="form-group">
 																							<label class="control-label">
-																								Time Of Day: {{l+1}}
+																								Time Of Day: {{l+1}}<span  style="color: red;
+																								font-weight: bold;
+																								margin-left: 3px;
+																								font-size: 1.2em;">*</span>
 																								<label *ngIf="getTimeOfDayDetails(timingDet).length>1" (click)="removeTimeOfDayDetails(i,j, k, l)">
 																									<i class="feather icon-x-circle"></i>
 																								</label>
