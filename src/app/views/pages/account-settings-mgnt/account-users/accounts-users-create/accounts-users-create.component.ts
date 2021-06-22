@@ -18,9 +18,11 @@ export class AccountsUsersCreateComponent implements OnInit {
   MedicationDispense = new MedicationDispense();
   SubmitForm: FormGroup;
   activeLineDetailsTab = 'lineDetails_0';
+  activeTimingDetailsTab = 'timingDetails_0';
 
   statusMsg:any='';
   responseData:any;
+
   constructor(private spinner: NgxSpinnerService,
     private _formBuilder: FormBuilder,
     private _APIMasters: MasterServicesService) {
@@ -44,8 +46,8 @@ export class AccountsUsersCreateComponent implements OnInit {
       first_name: ['Jane'],
       middle_name: [''],
       last_name: ['Jackson'],
-      prefix: [''],
-      suffix: [''],
+      prefix: [null],
+      suffix: [null],
       dob: ['1982-12-04'],
       home_system: ['phone'],
       home_use: ['home'],
@@ -107,7 +109,7 @@ export class AccountsUsersCreateComponent implements OnInit {
       mDispanse_concept_code: '67877-0321-05',
 
       dosageDetails: this._formBuilder.array([this.newDosageDetails()]),
-      warningDetails: this._formBuilder.array([this.newWarningDetails()]),
+      warningDetails: this._formBuilder.array([this.newWarningDetails(), this.newWarningDetails()]),
     })
   }
   addLineDetails() {
@@ -125,12 +127,8 @@ export class AccountsUsersCreateComponent implements OnInit {
       dosage_instructions_asNeededBoolean: 'false',
       dosage_instructions_dose_quantity_value: '1',
       dosage_instructions_dose_quantity_unit: 'TAB',
-      dosage_instructions_timing_frequency: '1',
-      dosage_instructions_timing_period: '1',
-      dosage_instructions_timing_periodUnit: 'd',
-      dosage_instructions_timing_count: '30',
-      dosage_instructions_timing_timeOfDay_1: '08:00',
-      // dosage_instructions_timing_timeOfDay_2: '05:00'
+      timingDetails: this._formBuilder.array([this.newTimingDetails()]),
+      // timeOfDay: this._formBuilder.array([this.newTimeOfDayDetails()]),
     })
   }
   addDosageDetails(i) {
@@ -145,7 +143,7 @@ export class AccountsUsersCreateComponent implements OnInit {
 
   //Warning Details Form Starts Here
   getWarningDetails(lineForm) { return lineForm.controls.warningDetails.controls; }
-  newWarningDetails(): FormGroup { return this._formBuilder.group({ warning: 'warning1' }) }
+  newWarningDetails(): FormGroup { return this._formBuilder.group({ warning: '' }) }
   addWarningDetails(i) {
     const control = <FormArray>this.lineDetails.controls[i].get('warningDetails');
     control.push(this.newWarningDetails());
@@ -154,7 +152,48 @@ export class AccountsUsersCreateComponent implements OnInit {
     const control = <FormArray>this.lineDetails.controls[i].get('warningDetails');
     control.removeAt(k);
   }
-  //Dosage Details Form Ends Here  
+  //Warning Details Form Ends Here  
+
+  //Timing Details Form Starts Here
+  getTimingDetails(formDat) { return formDat.controls.timingDetails.controls; }
+  newTimingDetails(): FormGroup { 
+    return this._formBuilder.group({
+      timing_frequency: '1',
+      timing_period: '1',
+      timing_periodUnit: 'd',
+      timing_count: '30',
+      timeOfDay: this._formBuilder.array([this.newTimeOfDayDetails()]),
+    })
+  };
+  addTimingDetails(i, j) {
+    const control_1 = <FormArray>this.lineDetails.controls[i].get('dosageDetails');
+    const control = <FormArray>control_1.controls[j].get('timingDetails');
+    control.push(this.newTimingDetails());
+    this.activeTimingDetailsTab = 'timingDetails_' + (control.length - 1);
+
+  }
+  removeTimingDetails(i: number, j: number, k: number) {
+    const control = <FormArray>this.SubmitForm.get(['lineDetails', i, 'dosageDetails', j, 'timingDetails']);
+    control.removeAt(k);
+  }
+  //Timing Details Form Ends Here  
+
+
+  //Time Of Day Details Form Starts Here
+  getTimeOfDayDetails(formDat) { return formDat.controls.timeOfDay.controls; }
+  newTimeOfDayDetails(): FormGroup { return this._formBuilder.group({ timeOfDayDetails: '' }) };
+  addTimeOfDayDetails(i, j, k) {
+    const control_1 = <FormArray>this.lineDetails.controls[i].get('dosageDetails');
+    const control_2 = <FormArray>control_1.controls[j].get('timingDetails');
+    const control = <FormArray>control_2.controls[k].get('timeOfDay');
+    control.push(this.newTimeOfDayDetails());
+  }
+  removeTimeOfDayDetails(i: number, j: number, k: number, l: number) {
+    const control = <FormArray>this.SubmitForm.get(['lineDetails', i, 'dosageDetails', j, 'timingDetails', k, 'timeOfDay']);
+    control.removeAt(l);
+  }
+  //Time Of Day Details Form Ends Here  
+
 
   submitForm() {
     const requestObj = this.SubmitForm.value;
@@ -236,18 +275,21 @@ export class AccountsUsersCreateComponent implements OnInit {
 
       //Dosage Details Obj Defining Starts
       lineDetail.dosageDetails.forEach(dosageDetail => {
-        let timingData = new timing();
-        timingData.count = dosageDetail.dosage_instructions_timing_count;
-        timingData.frequency = dosageDetail.dosage_instructions_timing_frequency;
-        timingData.period = dosageDetail.dosage_instructions_timing_period;
-        timingData.periodUnit = dosageDetail.dosage_instructions_timing_periodUnit;
-        timingData.timeOfDay.push(dosageDetail.dosage_instructions_timing_timeOfDay_1)
-        // timingData.timeOfDay.push(dosageDetail.dosage_instructions_timing_timeOfDay_2)
         let dosageData = new dosageInstruction();
         dosageData.asNeededBoolean = dosageDetail.dosage_instructions_asNeededBoolean;
         dosageData.doseQuantity.unit = dosageDetail.dosage_instructions_dose_quantity_unit;
         dosageData.doseQuantity.value = dosageDetail.dosage_instructions_dose_quantity_value;
-        dosageData.timing.push(timingData);
+        dosageDetail.timingDetails.forEach(timingDetail => {
+          let timingData = new timing();
+          timingData.count = timingDetail.timing_count;
+          timingData.frequency = timingDetail.timing_frequency;
+          timingData.period = timingDetail.timing_period;
+          timingData.periodUnit = timingDetail.timing_periodUnit;
+          timingDetail.timeOfDay.forEach(timeOfDayDet => {
+            timingData.timeOfDay.push(timeOfDayDet.timeOfDayDetails);
+          });
+          dosageData.timing.push(timingData);
+        });
         lineData.MedicationDispense.dosageInstruction.push(dosageData);
       });
       //Dosage Details Obj Defining Ends

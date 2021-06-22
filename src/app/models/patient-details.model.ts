@@ -53,7 +53,8 @@ export class MedicationOrder {
     totalSyncedRX =1;
     dateNeedBy: string = null;
 
-    lines: Array<lines> = [new lines()];
+    //lines: Array<lines> = [new lines()];
+    lines: Array<lines> = [];
 
     // MedicationRequest = new MedicationRequest();
     // MedicationDispense = new MedicationDispense();
