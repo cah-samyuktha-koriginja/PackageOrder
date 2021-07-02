@@ -61,8 +61,8 @@ export class AccountsUsersCreateComponent implements OnInit {
       pharmacist_first_name: ['Robin'],
       pharmacist_middle_name: [''],
       pharmacist_last_name: ['Brown'],
-      pharmacist_prefix: [''],
-      pharmacist_suffix: [''],
+      pharmacist_prefix: ['Pharm. D.'],
+      pharmacist_suffix: ['Dr.'],
 
       medication_dispense_manifestId: ['9901'],
       medication_dispense_totalSyncedRX: 1,
@@ -217,7 +217,9 @@ export class AccountsUsersCreateComponent implements OnInit {
     this.PatientDetailsForm.patient.name.suffix = requestObj.suffix;
     this.PatientDetailsForm.patient.name.family = requestObj.last_name;
     this.PatientDetailsForm.patient.name.text = requestObj.first_name + ' ' + requestObj.middle_name + ' ' + requestObj.last_name;
-    this.PatientDetailsForm.patient.name.given.push(requestObj.first_name);
+    this.PatientDetailsForm.patient.name.given=[];
+
+    requestObj.first_name ? this.PatientDetailsForm.patient.name.given.push(requestObj.first_name) : '';
     requestObj.middle_name ? this.PatientDetailsForm.patient.name.given.push(requestObj.middle_name) : '';
 
     this.PatientDetailsForm.patient.address.line.push(requestObj.line_1);
@@ -253,9 +255,13 @@ export class AccountsUsersCreateComponent implements OnInit {
       lineData.MedicationRequest.Requestor.name.prefix = lineDetail.requestor_prefix;
       lineData.MedicationRequest.Requestor.name.suffix = lineDetail.requestor_suffix;
       lineData.MedicationRequest.Requestor.name.text = lineDetail.requestor_first_name + ' ' + lineDetail.requestor_middle_name + ' ' + lineDetail.requestor_last_name;
-      lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_first_name);
-      lineDetail.requestor_middle_name ? lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_middle_name) : '';
+      // lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_first_name);
+      // lineDetail.requestor_middle_name ? lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_middle_name) : '';
 
+      lineData.MedicationRequest.Requestor.name.given=[];
+      lineDetail.requestor_first_name ? lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_first_name) : '';
+      lineDetail.requestor_middle_name ? lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_middle_name) : '';
+  
       lineData.MedicationRequest.Requestor.address.city = lineDetail.requestor_city;
       lineData.MedicationRequest.Requestor.address.state = lineDetail.requestor_state;
       lineData.MedicationRequest.Requestor.address.postalCode = lineDetail.requestor_postalCode;
@@ -312,11 +318,17 @@ export class AccountsUsersCreateComponent implements OnInit {
 
     this._APIMasters.postPatient(this.PatientDetailsForm, this.token).subscribe(res => {
       this.responseData=res;
+
       this.statusMsg=this.responseData.status.message;
 
       var self=this; setTimeout(() => { self.showMsg = false;this.initiateSubmitForm(); }, 5000); 
      }, error => { 
+
      var self=this; setTimeout(() => { self.showMsg = false;  this.initiateSubmitForm();}, 5000);
+     if(error.status==0){
+      this.response = { status: error.status, statusText: "Token Expired", colorCode:'danger' };
+     }
+     else
      this.response = { status: error.status, statusText: error.statusText, colorCode:'danger' };
     
      this.LoadingScreen(false); });
