@@ -10,9 +10,12 @@
 	</div>
 
 	<div *ngIf="showMsg">
-	<div *ngIf="statusMsg" style=" color: #059; background-color: #BEF;margin: 10px 0;  padding: 10px; border-radius: 3px 3px 3px 3px;">{{statusMsg}}</div>
-	<ngb-alert [dismissible]="false" [type]="response.colorCode" *ngIf="response.status!=100"> {{response.statusText}} </ngb-alert>
-</div>
+		<div *ngIf="statusMsg"
+			style=" color: #059; background-color: #BEF;margin: 10px 0;  padding: 10px; border-radius: 3px 3px 3px 3px;">
+			{{statusMsg}}</div>
+		<ngb-alert [dismissible]="false" [type]="response.colorCode" *ngIf="response.status!=100">
+			{{response.statusText}} </ngb-alert>
+	</div>
 	<div class="d-flex align-items-center flex-wrap text-nowrap">
 		<button type="button" class="btn btn-outline-secondary mr-2" (click)="refreshToken()">Refresh Token</button>
 		<button type="button" class="btn btn-primary" (click)="submitForm()">Submit</button>
@@ -35,7 +38,7 @@
 						<div class="col-sm-12">
 							<div class="form-group">
 								<label class="control-label">System
-									<span  style="color: red;
+									<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -46,7 +49,7 @@
 						<div class="col-sm-12">
 							<div class="form-group">
 								<label class="control-label">NCPDP
-									<span  style="color: red;
+									<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -66,7 +69,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="control-label">ID
-									<span  style="color: red;
+									<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -89,7 +92,7 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="control-label">First Name
-									<span  style="color: red;
+									<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -106,7 +109,7 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="control-label">Last Name
-									<span  style="color: red;
+									<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -158,7 +161,10 @@
 		<div class="col-md-5 pl-0">
 			<div class="card">
 				<div class="card-body">
-					<h6 class="card-title border-bottom text-primary"> Address Information</h6>
+					<h6 class="card-title border-bottom text-primary"> Address Information <span style="color: red;
+						font-weight: bold;
+						margin-left: 3px;
+						font-size: 1.2em;">*</span></h6>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
@@ -206,7 +212,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="control-label">First Name
-									<span  style="color: red;
+									<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -223,7 +229,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="control-label">Last Name
-									<span  style="color: red;
+									<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -266,7 +272,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="control-label">totalSyncedRX
-									<span  style="color: red;
+									<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -284,34 +290,37 @@
 						</div>
 					</div>
 					<div>
-						<div
-							class="d-flex justify-content-between align-items-baseline border-bottom text-primary">
+						<div class="d-flex justify-content-between align-items-baseline border-bottom text-primary">
 							<h6 class="card-title mb-0 text-primary">Lines</h6>
-							<span class="badge badge-primary mb-1 pointer" (click)="addLineDetails()">Add New Line</span>
+							<span class="badge badge-primary mb-1 pointer" (click)="addLineDetails()">Add New
+								Line</span>
 						</div>
-						<div class="mt-1" formArrayName="lineDetails" >
+						<div class="mt-1" formArrayName="lineDetails">
 							<ngb-accordion [closeOthers]="true" [activeIds]="activeLineDetailsTab">
-								<ngb-panel id="lineDetails_{{i}}" title="Line Details {{i+1}}" *ngFor="let lineDetail of lineDetails.controls; let i=index">
+								<ngb-panel id="lineDetails_{{i}}" title="Line Details {{i+1}}"
+									*ngFor="let lineDetail of lineDetails.controls; let i=index">
 									<ng-template [formGroupName]="i" ngbPanelContent>
 										<div class="text-right">
-											<button *ngIf="lineDetails.controls.length>1" class="btn btn-sm btn-danger" (click)="removeLineDetails(i)">Remove Line Details {{i+1}}</button>	
+											<button *ngIf="lineDetails.controls.length>1" class="btn btn-sm btn-danger"
+												(click)="removeLineDetails(i)">Remove Line Details {{i+1}}</button>
 										</div>
 										<div class="row">
 											<div class="col-sm-4">
 												<div class="form-group">
 													<label class="control-label">authorizingPrescription
-														<span  style="color: red;
+														<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
 													</label>
-													<input formControlName="authorizingPrescription" class="form-control">
+													<input formControlName="authorizingPrescription"
+														class="form-control">
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group">
 													<label class="control-label">authorOn
-														<span  style="color: red;
+														<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -321,7 +330,7 @@
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group">
-													<label class="control-label">Validity Period end<span  style="color: red;
+													<label class="control-label">Validity Period end<span style="color: red;
 														font-weight: bold;
 														margin-left: 3px;
 														font-size: 1.2em;">*</span></label>
@@ -333,36 +342,42 @@
 													<div class="card-body">
 														<div class="row">
 															<div class="col-sm-12">
-																<h6 class="card-title border-bottom text-primary"> Requestor Basic Information</h6>
+																<h6 class="card-title border-bottom text-primary">
+																	Requestor Basic Information</h6>
 															</div>
 															<div class="col-sm-6">
 																<div class="form-group">
 																	<label class="control-label">Prefix</label>
-																	<input class="form-control" formControlName="requestor_prefix">
+																	<input class="form-control"
+																		formControlName="requestor_prefix">
 																</div>
 															</div>
 															<div class="col-sm-6">
 																<div class="form-group">
 																	<label class="control-label">suffix</label>
-																	<input class="form-control" formControlName="requestor_suffix">
+																	<input class="form-control"
+																		formControlName="requestor_suffix">
 																</div>
 															</div>
 															<div class="col-sm-6">
 																<div class="form-group">
 																	<label class="control-label">First Name</label>
-																	<input class="form-control" formControlName="requestor_first_name">
+																	<input class="form-control"
+																		formControlName="requestor_first_name">
 																</div>
 															</div>
 															<div class="col-sm-6">
 																<div class="form-group">
 																	<label class="control-label">Middle Name</label>
-																	<input class="form-control" formControlName="requestor_middle_name">
+																	<input class="form-control"
+																		formControlName="requestor_middle_name">
 																</div>
 															</div>
 															<div class="col-sm-6">
 																<div class="form-group">
 																	<label class="control-label">Last Name</label>
-																	<input class="form-control" formControlName="requestor_last_name">
+																	<input class="form-control"
+																		formControlName="requestor_last_name">
 																</div>
 															</div>
 														</div>
@@ -374,180 +389,211 @@
 													<div class="card-body">
 														<div class="row">
 															<div class="col-sm-12">
-																<h6 class="card-title border-bottom text-primary"> Requestor Address Details</h6>
+																<h6 class="card-title border-bottom text-primary">
+																	Requestor Address Details</h6>
 															</div>
 															<div class="col-sm-12">
 																<div class="form-group">
 																	<label class="control-label">Address Line 1</label>
-																	<input class="form-control" formControlName="requestor_line_1">
+																	<input class="form-control"
+																		formControlName="requestor_line_1">
 																</div>
 															</div>
 															<div class="col-sm-12">
 																<div class="form-group">
 																	<label class="control-label">Address Line 2</label>
-																	<input class="form-control" formControlName="requestor_line_2">
+																	<input class="form-control"
+																		formControlName="requestor_line_2">
 																</div>
 															</div>
 															<div class="col-sm-4">
 																<div class="form-group">
 																	<label class="control-label">City</label>
-																	<input class="form-control" formControlName="requestor_city">
+																	<input class="form-control"
+																		formControlName="requestor_city">
 																</div>
 															</div>
 															<div class="col-sm-4">
 																<div class="form-group">
 																	<label class="control-label">State</label>
-																	<input class="form-control" formControlName="requestor_state">
+																	<input class="form-control"
+																		formControlName="requestor_state">
 																</div>
 															</div>
 															<div class="col-sm-4">
 																<div class="form-group">
 																	<label class="control-label">Postal Code</label>
-																	<input class="form-control" formControlName="requestor_postalCode">
+																	<input class="form-control"
+																		formControlName="requestor_postalCode">
 																</div>
-															</div>				
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="col-sm-6 mt-3">
-												<h6 class="card-title border-bottom text-primary"> Requestor Contact Information </h6>
+												<h6 class="card-title border-bottom text-primary"> Requestor Contact
+													Information </h6>
 												<div class="row">
 													<div class="col-sm-4">
 														<div class="form-group">
 															<label class="control-label">System</label>
-															<input class="form-control" formControlName="requestor_home_system">
+															<input class="form-control"
+																formControlName="requestor_home_system">
 														</div>
 													</div>
 													<div class="col-sm-4">
 														<div class="form-group">
 															<label class="control-label">Use</label>
-															<input class="form-control" formControlName="requestor_home_use">
+															<input class="form-control"
+																formControlName="requestor_home_use">
 														</div>
 													</div>
 													<div class="col-sm-4">
 														<div class="form-group">
 															<label class="control-label">Value</label>
-															<input class="form-control" formControlName="requestor_home_number">
+															<input class="form-control"
+																formControlName="requestor_home_number">
 														</div>
 													</div>
 												</div>
 												<div class="card-title border-bottom"></div>
 											</div>
 											<div class="col-sm-6 mt-3">
-												<h6 class="card-title border-bottom text-primary"> medication Codeable Concept </h6>
+												<h6 class="card-title border-bottom text-primary"> medication Codeable
+													Concept </h6>
 												<div class="row">
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label">System</label>
-															<input class="form-control" formControlName="requestor_home_system">
+															<input class="form-control"
+																formControlName="requestor_home_system">
 														</div>
 													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label">Use</label>
-															<input class="form-control" formControlName="requestor_home_use">
+															<input class="form-control"
+																formControlName="requestor_home_use">
 														</div>
 													</div>
 												</div>
 												<div class="card-title border-bottom"></div>
-											</div>											
+											</div>
 										</div>
 										<div class="card">
 											<div class="card-body">
-												<h6 class="card-title border-bottom text-primary"> Medication Dispense Information</h6>
+												<h6 class="card-title border-bottom text-primary"> Medication Dispense
+													Information</h6>
 												<div class="row">
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">DispenseLineID</label>
-															<input class="form-control" formControlName="mDispanse_dispenseLineid">
-														</div>
-													</div>			
-													<div class="col-sm-3">
-														<div class="form-group">
-															<label class="control-label">originalFillDate</label>
-															<input class="form-control" formControlName="mDispanse_originalFillDate">
+															<input class="form-control"
+																formControlName="mDispanse_dispenseLineid">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label class="control-label">dispenseStartDate</label>
-															<input class="form-control" formControlName="mDispanse_dispenseStartDate">
+															<label class="control-label">originalFillDate<span style="color: red;
+																font-weight: bold;
+																margin-left: 3px;
+																font-size: 1.2em;">*</span></label>
+															<input class="form-control"
+																formControlName="mDispanse_originalFillDate">
+														</div>
+													</div>
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label class="control-label">dispenseStartDate<span style="color: red;
+																font-weight: bold;
+																margin-left: 3px;
+																font-size: 1.2em;">*</span></label>
+															<input class="form-control"
+																formControlName="mDispanse_dispenseStartDate">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">dispenseRefillNumber</label>
-															<input class="form-control"formControlName="mDispanse_dispenseRefillNumber">
+															<input class="form-control"
+																formControlName="mDispanse_dispenseRefillNumber">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">refillsRemaining</label>
-															<input class="form-control" formControlName="mDispanse_refillsRemaining">
+															<input class="form-control"
+																formControlName="mDispanse_refillsRemaining">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">orderType
-																<span  style="color: red;
+																<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
 															</label>
-															<input class="form-control" formControlName="mDispanse_orderType">
+															<input class="form-control"
+																formControlName="mDispanse_orderType">
 														</div>
-													</div>			
+													</div>
 													<div class="col-sm-6">
 														<div class="form-group">
 															<label class="control-label">refillMessage</label>
-															<input class="form-control" formControlName="mDispanse_refillMessage">
+															<input class="form-control"
+																formControlName="mDispanse_refillMessage">
 														</div>
 													</div>
-													
+
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">RXSyncSeq
-																<span  style="color: red;
+																<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
 															</label>
-															<input class="form-control" formControlName="mDispanse_RXSyncSeq" >
+															<input class="form-control"
+																formControlName="mDispanse_RXSyncSeq">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">Days Supply
-																<span  style="color: red;
+																<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
 															</label>
-															<input class="form-control" formControlName="mDispanse_daysSupply">
+															<input class="form-control"
+																formControlName="mDispanse_daysSupply">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">Quantity
-																<span  style="color: red;
+																<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
 															</label>
-															<input class="form-control" formControlName="mDispanse_quantity">
+															<input class="form-control"
+																formControlName="mDispanse_quantity">
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">substitution</label>
-															<input class="form-control"formControlName="mDispanse_wasSubstituted">
+															<input class="form-control"
+																formControlName="mDispanse_wasSubstituted">
 														</div>
 													</div>
 													<div class="col-sm-12">
 														<div class="form-group">
 															<label class="control-label">sig
-																<span  style="color: red;
+																<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -556,23 +602,26 @@
 														</div>
 													</div>
 													<div class="col-md-12 mt-2">
-														<h6 class="card-title border-bottom text-primary"> Medication codeable concept</h6>
+														<h6 class="card-title border-bottom text-primary"> Medication
+															codeable concept</h6>
 														<div class="row">
 															<div class="col-sm-6">
 																<div class="form-group">
 																	<label class="control-label">System</label>
-																	<input class="form-control" formControlName="mDispanse_concept_system">
+																	<input class="form-control"
+																		formControlName="mDispanse_concept_system">
 																</div>
 															</div>
 															<div class="col-sm-6">
 																<div class="form-group">
 																	<label class="control-label">Code
-																		<span  style="color: red;
+																		<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
 																	</label>
-																	<input class="form-control" formControlName="mDispanse_concept_code">
+																	<input class="form-control"
+																		formControlName="mDispanse_concept_code">
 																</div>
 															</div>
 														</div>
@@ -581,83 +630,122 @@
 												<div class="card-title border-bottom"></div>
 											</div>
 										</div>
-										<div class="d-flex justify-content-between align-items-center flex-wrap border-bottom mt-4">
+										<div
+											class="d-flex justify-content-between align-items-center flex-wrap border-bottom mt-4">
 											<h6 class="card-title text-primary">Warning Details</h6>
-											<span class="badge badge-info mb-1 pointer" (click)="addWarningDetails(i)">Add Warning</span>
+											<span class="badge badge-info mb-1 pointer"
+												(click)="addWarningDetails(i)">Add Warning</span>
 										</div>
 										<div class="row mt-2" formArrayName="warningDetails">
-											<div class="col-md-6" [formGroupName]="k" *ngFor="let warningDetail of getWarningDetails(lineDetail); let k=index">
+											<div class="col-md-6" [formGroupName]="k"
+												*ngFor="let warningDetail of getWarningDetails(lineDetail); let k=index">
 												<div class="row">
 													<div class="col-md-11 pr-0">
 														<div class="form-group">
-															<label class="control-label">Warning {{k+1}}</label>
+															<label class="control-label">Warning {{k+1}} <span style="color: red;
+																font-weight: bold;
+																margin-left: 3px;
+																font-size: 1.2em;">*</span></label>
 															<input class="form-control" formControlName="warning">
 														</div>
 													</div>
 													<div class="col-md-1">
-														<label *ngIf="getWarningDetails(lineDetail).length>1" (click)="removeWarningDetails(i,k)" class="mb-0 mt-1-8rem"><i class="feather icon-x-circle"></i></label>
+														<label *ngIf="getWarningDetails(lineDetail).length>1"
+															(click)="removeWarningDetails(i,k)"
+															class="mb-0 mt-1-8rem"><i
+																class="feather icon-x-circle"></i></label>
 													</div>
 												</div>
 											</div>
 										</div>
 										<div class="card-title border-bottom"></div>
-										<div class="d-flex justify-content-between align-items-center flex-wrap border-bottom mt-4">
+										<div
+											class="d-flex justify-content-between align-items-center flex-wrap border-bottom mt-4">
 											<h6 class="card-title text-primary">Dosage Instructions</h6>
-											<span class="badge badge-info mb-1 pointer" (click)="addDosageDetails(i)">Add Dosage</span>
+											<span class="badge badge-info mb-1 pointer"
+												(click)="addDosageDetails(i)">Add Dosage</span>
 										</div>
 										<div class="row" formArrayName="dosageDetails">
-											<div class="col-md-12 mt-2" *ngFor="let dosageDetail of getDosageDetails(lineDetail); let j=index">
+											<div class="col-md-12 mt-2"
+												*ngFor="let dosageDetail of getDosageDetails(lineDetail); let j=index">
 												<div class="card" [formGroupName]="j">
 													<div class="card-body">
-														<div class="d-flex justify-content-between align-items-center flex-wrap grid-margin border-bottom">
+														<div
+															class="d-flex justify-content-between align-items-center flex-wrap grid-margin border-bottom">
 															<h6 class="card-title text-primary"> Dosage {{j+1}}</h6>
-															<label *ngIf="getDosageDetails(lineDetail).length>1"  (click)="removeDosageDetails(i,j)"><i class="feather icon-x-circle"></i></label>
+															<label *ngIf="getDosageDetails(lineDetail).length>1"
+																(click)="removeDosageDetails(i,j)"><i
+																	class="feather icon-x-circle"></i></label>
 														</div>
 														<div class="row">
 															<div class="col-sm-6">
-																<h6 class="card-title border-bottom text-primary">Dose Quantity</h6>
+																<h6 class="card-title border-bottom text-primary">Dose
+																	Quantity</h6>
 																<div class="col-sm-12">
 																	<div class="row">
 																		<div class="col-sm-6">
 																			<div class="form-group">
-																				<label class="control-label">value</label>
-																				<input class="form-control" formControlName="dosage_instructions_dose_quantity_value">
+																				<label class="control-label">value<span
+																						style="color: red;
+																					font-weight: bold;
+																					margin-left: 3px;
+																					font-size: 1.2em;">*</span></label>
+																				<input class="form-control"
+																					formControlName="dosage_instructions_dose_quantity_value">
 																			</div>
 																		</div>
 																		<div class="col-sm-6">
 																			<div class="form-group">
-																				<label class="control-label">Unit</label>
-																				<input class="form-control" formControlName="dosage_instructions_dose_quantity_unit">
+																				<label class="control-label">Unit<span
+																						style="color: red;
+																					font-weight: bold;
+																					margin-left: 3px;
+																					font-size: 1.2em;">*</span></label>
+																				<input class="form-control"
+																					formControlName="dosage_instructions_dose_quantity_unit">
 																			</div>
 																		</div>
 																		<div class="col-sm-12">
 																			<div class="form-group">
-																				<label class="control-label">asNeeded Boolean</label>
-																				<input class="form-control" formControlName="dosage_instructions_asNeededBoolean">
+																				<label class="control-label">asNeeded
+																					Boolean</label>
+																				<input class="form-control"
+																					formControlName="dosage_instructions_asNeededBoolean">
 																			</div>
 																		</div>
 																	</div>
 																</div>
 															</div>
 															<div class="col-sm-12">
-																<div class="d-flex justify-content-between align-items-center flex-wrap border-bottom">
-																	<h6 class="card-title text-warning mb-0">Timing Details</h6>
-																	<span class="badge badge-warning mb-1 pointer" (click)="addTimingDetails(i,j)">Add Timing</span>
+																<div
+																	class="d-flex justify-content-between align-items-center flex-wrap border-bottom">
+																	<h6 class="card-title text-warning mb-0">Timing
+																		Details</h6>
+																	<!-- <span class="badge badge-warning mb-1 pointer"
+																		(click)="addTimingDetails(i,j)">Add
+																		Timing</span> -->
 																</div>
 																<div formArrayName="timingDetails">
-																	<ngb-accordion [closeOthers]="true" [activeIds]="activeTimingDetailsTab">
-																		<ngb-panel id="timingDetails_{{k}}" title="Timing Details {{k+1}}" *ngFor="let timingDet of getTimingDetails(dosageDetail); let k=index">
-																			<ng-template [formGroupName]="k" ngbPanelContent>
+																	<ngb-accordion [closeOthers]="true"
+																		[activeIds]="activeTimingDetailsTab">
+																		<ngb-panel id="timingDetails_{{k}}"
+																			title="Timing Details {{k+1}}"
+																			*ngFor="let timingDet of getTimingDetails(dosageDetail); let k=index">
+																			<ng-template [formGroupName]="k"
+																				ngbPanelContent>
 																				<div class="text-right">
-																					<button *ngIf="getTimingDetails(dosageDetail).length>1" class="btn btn-sm btn-danger"
-																						(click)="removeTimingDetails(i,j,k)">Remove Timing Details {{k+1}}</button>
+																					<button
+																						*ngIf="getTimingDetails(dosageDetail).length>1"
+																						class="btn btn-sm btn-danger"
+																						(click)="removeTimingDetails(i,j,k)">Remove
+																						Timing Details {{k+1}}</button>
 																				</div>
 																				<div class="row">
 																					<div class="col-sm-3">
 																						<div class="form-group">
 																							<label
 																								class="control-label">Frequency
-																								<span  style="color: red;
+																								<span style="color: red;
 																								font-weight: bold;
 																								margin-left: 3px;
 																								font-size: 1.2em;">*</span></label>
@@ -667,8 +755,9 @@
 																					</div>
 																					<div class="col-sm-3">
 																						<div class="form-group">
-																							<label class="control-label">Period
-																								<span  style="color: red;
+																							<label
+																								class="control-label">Period
+																								<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -679,9 +768,10 @@
 																					</div>
 																					<div class="col-sm-3">
 																						<div class="form-group">
-																							<label class="control-label">Period
+																							<label
+																								class="control-label">Period
 																								Unit
-																								<span  style="color: red;
+																								<span style="color: red;
 																								font-weight: bold;
 																								margin-left: 3px;
 																								font-size: 1.2em;">*</span></label>
@@ -691,8 +781,9 @@
 																					</div>
 																					<div class="col-sm-3">
 																						<div class="form-group">
-																							<label class="control-label">count
-																								<span  style="color: red;
+																							<label
+																								class="control-label">count
+																								<span style="color: red;
 									font-weight: bold;
 									margin-left: 3px;
 									font-size: 1.2em;">*</span>
@@ -702,33 +793,45 @@
 																						</div>
 																					</div>
 																				</div>
-																				<div class="d-flex justify-content-between align-items-center flex-wrap border-bottom">
-																					<h6 class="card-title text-info mb-0">Time of day</h6>
-																					<span class="badge badge-info mb-1 pointer" (click)="addTimeOfDayDetails(i,j,k)">Add new</span>
+																				<div
+																					class="d-flex justify-content-between align-items-center flex-wrap border-bottom">
+																					<h6
+																						class="card-title text-info mb-0">
+																						Time of day</h6>
 																				</div>
-																				<div class="row mt-2" formArrayName="timeOfDay">
-																					<div class="col-sm-3" [formGroupName]="l" *ngFor="let timeOfDayDet of getTimeOfDayDetails(timingDet); let l=index">
-																						<div class="form-group">
-																							<label class="control-label">
-																								Time Of Day: {{l+1}}<span  style="color: red;
-																								font-weight: bold;
-																								margin-left: 3px;
-																								font-size: 1.2em;">*</span>
-																								<label *ngIf="getTimeOfDayDetails(timingDet).length>1" (click)="removeTimeOfDayDetails(i,j, k, l)">
-																									<i class="feather icon-x-circle"></i>
-																								</label>
-																							</label>
-																							<input class="form-control" formControlName="timeOfDayDetails">
-																						</div>
+																				<div style="
+																			  padding: 10px;">
+																					<div>
+																						<h5>When:</h5>
+																						<ul class="checkbox-items"
+																							style="list-style-type: none; padding: 10px;
+																					padding-top: 8px; 
+																					padding-left: 1px; display: flex;">
+																							<li *ngFor="let item of optionsTimesOfDay"
+																								style="padding-right: 8px;">
+																								<input type="checkbox"
+																									(change)="changeTimeSelection($event,item, $event.target.checked)">{{item.name}}
+																							</li>
+																						</ul>
+																					</div>
+																					<div>
+																						<h5>Day Of Week:</h5>
+																						<ul class="checkbox-items"
+																							style="list-style-type: none; padding: 10px;
+																					  padding-top: 8px; 
+																					  padding-left: 1px; display: flex;">
+																							<li *ngFor="let item of optionsDayOfWeek"
+																								style="padding-right: 8px;">
+																								<input type="checkbox"
+																									(change)="changeDaySelection($event,item, $event.target.checked)">{{item.name}}
+																							</li>
+																						</ul>
 																					</div>
 																				</div>
 																			</ng-template>
 																		</ngb-panel>
-																	</ngb-accordion>																	
+																	</ngb-accordion>
 																</div>
-
-
-																
 															</div>
 														</div>
 													</div>

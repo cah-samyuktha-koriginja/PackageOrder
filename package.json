@@ -1,9 +1,9 @@
 {
-  "name": "wbd-support-order-placing",
+  "name": "patientform",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -30,7 +30,9 @@
     "@ng-select/ng-select": "^5.0.0",
     "@sweetalert2/ngx-sweetalert2": "^8.1.1",
     "angular-archwizard": "^6.1.0",
+    "angular-bootstrap-checkbox-group": "0.0.3",
     "angular-cropperjs": "^1.0.2",
+    "angular-multi-checkbox": "0.0.3",
     "animate.css": "^4.1.0",
     "apexcharts": "^3.20.0",
     "bootstrap": "^4.5.0",

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { Routes, RouterModule } from '@angular/router';
@@ -16,6 +16,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { CustomPipesModule } from '../../../pipe/custom-pipes.module';
 import { AccountSettingsMgntComponent } from './account-settings-mgnt.component';
 import { AccountsUsersCreateComponent } from './account-users/accounts-users-create/accounts-users-create.component';
+import { AngularBootstrapCheckboxGroupModule } from 'angular-bootstrap-checkbox-group';
+import { AngularMultiCheckboxModule } from 'angular-multi-checkbox';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = { suppressScrollX: true };
 const routes: Routes = [
   {
@@ -38,9 +40,13 @@ const routes: Routes = [
 @NgModule({
   declarations: [AccountSettingsMgntComponent,
     AccountsUsersCreateComponent,
+    
   ],
+  exports:[//AngularMultiCheckboxModule
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
-    CommonModule,
+    //CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     FeahterIconModule,
@@ -56,6 +62,8 @@ const routes: Routes = [
     SweetAlert2Module.forRoot(),
     CustomPipesModule,
     NgxSpinnerModule,
+    AngularBootstrapCheckboxGroupModule,
+    //AngularMultiCheckboxModule
   ],
   providers: [
     {
@@ -65,3 +73,4 @@ const routes: Routes = [
   ]
 })
 export class AccountSettingsMgntModule { }
+

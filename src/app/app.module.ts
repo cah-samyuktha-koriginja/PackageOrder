@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -8,17 +8,23 @@ import { LayoutModule } from './views/layout/layout.module';
 import { AuthGuard } from './core/guard/auth.guard';
 import { AppComponent } from './app.component';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { CommonModule } from '@angular/common';
+import { AngularMultiCheckboxModule } from 'angular-multi-checkbox';
 @NgModule({
   declarations: [
     AppComponent,
+    //AngularMultiCheckboxModule
   ],
+  //schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AngularMultiCheckboxModule
   ],
   providers: [
     AuthGuard,
