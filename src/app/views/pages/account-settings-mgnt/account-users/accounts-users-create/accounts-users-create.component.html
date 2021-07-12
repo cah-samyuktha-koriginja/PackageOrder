@@ -721,9 +721,9 @@
 																	class="d-flex justify-content-between align-items-center flex-wrap border-bottom">
 																	<h6 class="card-title text-warning mb-0">Timing
 																		Details</h6>
-																	<span class="badge badge-warning mb-1 pointer"
+																	<!-- <span class="badge badge-warning mb-1 pointer"
 																		(click)="addTimingDetails(i,j)">Add
-																		Timing</span>
+																		Timing</span> -->
 																</div>
 																<div formArrayName="timingDetails">
 																	<ngb-accordion [closeOthers]="true"
@@ -798,34 +798,40 @@
 																					<h6
 																						class="card-title text-info mb-0">
 																						Time of day</h6>
-																					<span
-																						class="badge badge-info mb-1 pointer"
-																						(click)="addTimeOfDayDetails(i,j,k)">Add
-																						new</span>
 																				</div>
-																				<div class="row mt-2" formArrayName="timeOfDay">
-																					<div class="col-sm-3" [formGroupName]="l" *ngFor="let timeOfDayDet of getTimeOfDayDetails(timingDet); let l=index">
-																						<div class="form-group">
-																							<label class="control-label">
-																								Time Of Day: {{l+1}}<span  style="color: red;
-																								font-weight: bold;
-																								margin-left: 3px;
-																								font-size: 1.2em;">*</span>
-																								<label *ngIf="getTimeOfDayDetails(timingDet).length>1" (click)="removeTimeOfDayDetails(i,j, k, l)">
-																									<i class="feather icon-x-circle"></i>
-																								</label>
-																							</label>
-																							<input class="form-control" formControlName="timeOfDayDetails">
-																						</div>
+																				<div style="
+																			  padding: 10px;">
+																					<div>
+																						<h5>When:</h5>
+																						<ul class="checkbox-items"
+																							style="list-style-type: none; padding: 10px;
+																					padding-top: 8px; 
+																					padding-left: 1px; display: flex;">
+																							<li *ngFor="let item of optionsTimesOfDay"
+																								style="padding-right: 8px;">
+																								<input type="checkbox"
+																									(change)="changeTimeSelection($event,item, $event.target.checked)">{{item.name}}
+																							</li>
+																						</ul>
+																					</div>
+																					<div>
+																						<h5>Day Of Week:</h5>
+																						<ul class="checkbox-items"
+																							style="list-style-type: none; padding: 10px;
+																					  padding-top: 8px; 
+																					  padding-left: 1px; display: flex;">
+																							<li *ngFor="let item of optionsDayOfWeek"
+																								style="padding-right: 8px;">
+																								<input type="checkbox"
+																									(change)="changeDaySelection($event,item, $event.target.checked)">{{item.name}}
+																							</li>
+																						</ul>
 																					</div>
 																				</div>
 																			</ng-template>
 																		</ngb-panel>
 																	</ngb-accordion>
 																</div>
-
-
-
 															</div>
 														</div>
 													</div>
