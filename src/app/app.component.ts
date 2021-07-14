@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   
   ngOnInit(): void {
     this.masterServicesService.getToken().subscribe((response: any) => {      
-     //console.log(response)
     });
    }
 

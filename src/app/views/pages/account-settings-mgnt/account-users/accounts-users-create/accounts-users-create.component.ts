@@ -201,7 +201,6 @@ export class AccountsUsersCreateComponent implements OnInit {
 
       this.token=response.access_token;
       this.token="Bearer "+this.token;
-      console.log(this.token)
      });
 }
 
