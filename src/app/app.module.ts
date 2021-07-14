@@ -1,15 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { LayoutModule } from './views/layout/layout.module';
 import { AuthGuard } from './core/guard/auth.guard';
-import { AppComponent } from './app.component';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { CommonModule } from '@angular/common';
 import { AngularMultiCheckboxModule } from 'angular-multi-checkbox';
+import { HttpClientModule } from '@angular/common/http';
+
+import { LayoutModule } from './views/layout/layout.module';
+import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
+
+import { AppComponent } from './app.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +28,8 @@ import { AngularMultiCheckboxModule } from 'angular-multi-checkbox';
     LayoutModule,
     HttpClientModule,
     NgxSpinnerModule,
-    AngularMultiCheckboxModule
+    AngularMultiCheckboxModule,
+    CoreModule
   ],
   providers: [
     AuthGuard,

@@ -10,10 +10,9 @@
 	</div>
 
 	<div *ngIf="showMsg">
-		<div *ngIf="statusMsg"
-			style=" color: #059; background-color: #BEF;margin: 10px 0;  padding: 10px; border-radius: 3px 3px 3px 3px;">
+		<div *ngIf="statusMsg" class="responseMessage">
 			{{statusMsg}}</div>
-		<ngb-alert [dismissible]="false" [type]="response.colorCode" *ngIf="response.status!=100">
+		<ngb-alert [dismissible]="false" [type]="'danger'" *ngIf="response.status!=100">
 			{{response.statusText}} </ngb-alert>
 	</div>
 	<div class="d-flex align-items-center flex-wrap text-nowrap">
@@ -38,10 +37,7 @@
 						<div class="col-sm-12">
 							<div class="form-group">
 								<label class="control-label">System
-									<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+									<span class="reqInputData">*</span>
 								</label>
 								<input formControlName="system" type="text" class="form-control">
 							</div>
@@ -49,10 +45,7 @@
 						<div class="col-sm-12">
 							<div class="form-group">
 								<label class="control-label">NCPDP
-									<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+									<span class="reqInputData">*</span>
 								</label>
 								<input formControlName="NCPDP" type="text" class="form-control">
 							</div>
@@ -69,10 +62,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="control-label">ID
-									<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+									<span class="reqInputData">*</span>
 								</label>
 								<input formControlName="id" type="text" class="form-control">
 							</div>
@@ -92,10 +82,7 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="control-label">First Name
-									<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+									<span class="reqInputData">*</span>
 								</label>
 								<input formControlName="first_name" type="text" class="form-control">
 							</div>
@@ -109,10 +96,7 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label class="control-label">Last Name
-									<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+									<span class="reqInputData">*</span>
 								</label>
 								<input formControlName="last_name" type="text" class="form-control">
 							</div>
@@ -161,10 +145,7 @@
 		<div class="col-md-5 pl-0">
 			<div class="card">
 				<div class="card-body">
-					<h6 class="card-title border-bottom text-primary"> Address Information <span style="color: red;
-						font-weight: bold;
-						margin-left: 3px;
-						font-size: 1.2em;">*</span></h6>
+					<h6 class="card-title border-bottom text-primary"> Address Information <span class="reqInputData">*</span></h6>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="form-group">
@@ -212,10 +193,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="control-label">First Name
-									<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+									<span class="reqInputData">*</span>
 								</label>
 								<input formControlName="pharmacist_first_name" type="text" class="form-control">
 							</div>
@@ -229,10 +207,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="control-label">Last Name
-									<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+									<span class="reqInputData">*</span>
 								</label>
 								<input formControlName="pharmacist_last_name" type="text" class="form-control">
 							</div>
@@ -272,10 +247,7 @@
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="control-label">totalSyncedRX
-									<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+									<span class="reqInputData">*</span>
 								</label>
 								<input formControlName="medication_dispense_totalSyncedRX" type="text"
 									class="form-control">
@@ -308,10 +280,7 @@
 											<div class="col-sm-4">
 												<div class="form-group">
 													<label class="control-label">authorizingPrescription
-														<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+														<span class="reqInputData">*</span>
 													</label>
 													<input formControlName="authorizingPrescription"
 														class="form-control">
@@ -320,20 +289,14 @@
 											<div class="col-sm-4">
 												<div class="form-group">
 													<label class="control-label">authorOn
-														<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+														<span class="reqInputData">*</span>
 													</label>
 													<input formControlName="authorOn" class="form-control">
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<div class="form-group">
-													<label class="control-label">Validity Period end<span style="color: red;
-														font-weight: bold;
-														margin-left: 3px;
-														font-size: 1.2em;">*</span></label>
+													<label class="control-label">Validity Period end<span class="reqInputData">*</span></label>
 													<input formControlName="validityPeriodEnd" class="form-control">
 												</div>
 											</div>
@@ -495,10 +458,7 @@
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label class="control-label">originalFillDate<span style="color: red;
-																font-weight: bold;
-																margin-left: 3px;
-																font-size: 1.2em;">*</span></label>
+															<label class="control-label">originalFillDate<span class="reqInputData">*</span></label>
 															<input class="form-control"
 																formControlName="mDispanse_originalFillDate">
 														</div>
@@ -530,10 +490,7 @@
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">orderType
-																<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+																<span class="reqInputData">*</span>
 															</label>
 															<input class="form-control"
 																formControlName="mDispanse_orderType">
@@ -550,10 +507,7 @@
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">RXSyncSeq
-																<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+																<span class="reqInputData">*</span>
 															</label>
 															<input class="form-control"
 																formControlName="mDispanse_RXSyncSeq">
@@ -562,10 +516,7 @@
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">Days Supply
-																<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+																<span class="reqInputData">*</span>
 															</label>
 															<input class="form-control"
 																formControlName="mDispanse_daysSupply">
@@ -574,10 +525,7 @@
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label">Quantity
-																<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+																<span class="reqInputData">*</span>
 															</label>
 															<input class="form-control"
 																formControlName="mDispanse_quantity">
@@ -593,10 +541,7 @@
 													<div class="col-sm-12">
 														<div class="form-group">
 															<label class="control-label">sig
-																<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+																<span class="reqInputData">*</span>
 															</label>
 															<input class="form-control" formControlName="mDispanse_sig">
 														</div>
@@ -615,10 +560,7 @@
 															<div class="col-sm-6">
 																<div class="form-group">
 																	<label class="control-label">Code
-																		<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+																		<span class="reqInputData">*</span>
 																	</label>
 																	<input class="form-control"
 																		formControlName="mDispanse_concept_code">
@@ -642,10 +584,7 @@
 												<div class="row">
 													<div class="col-md-11 pr-0">
 														<div class="form-group">
-															<label class="control-label">Warning {{k+1}} <span style="color: red;
-																font-weight: bold;
-																margin-left: 3px;
-																font-size: 1.2em;">*</span></label>
+															<label class="control-label">Warning {{k+1}} <span class="reqInputData">*</span></label>
 															<input class="form-control" formControlName="warning">
 														</div>
 													</div>
@@ -685,11 +624,7 @@
 																	<div class="row">
 																		<div class="col-sm-6">
 																			<div class="form-group">
-																				<label class="control-label">value<span
-																						style="color: red;
-																					font-weight: bold;
-																					margin-left: 3px;
-																					font-size: 1.2em;">*</span></label>
+																				<label class="control-label">value<span class="reqInputData">*</span></label>
 																				<input class="form-control"
 																					formControlName="dosage_instructions_dose_quantity_value">
 																			</div>
@@ -741,10 +676,7 @@
 																						<div class="form-group">
 																							<label
 																								class="control-label">Frequency
-																								<span style="color: red;
-																								font-weight: bold;
-																								margin-left: 3px;
-																								font-size: 1.2em;">*</span></label>
+																								<span class="reqInputData">*</span></label>
 																							<input class="form-control"
 																								formControlName="timing_frequency">
 																						</div>
@@ -753,10 +685,7 @@
 																						<div class="form-group">
 																							<label
 																								class="control-label">Period
-																								<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+																								<span class="reqInputData">*</span>
 																							</label>
 																							<input class="form-control"
 																								formControlName="timing_period">
@@ -767,10 +696,7 @@
 																							<label
 																								class="control-label">Period
 																								Unit
-																								<span style="color: red;
-																								font-weight: bold;
-																								margin-left: 3px;
-																								font-size: 1.2em;">*</span></label>
+																								<span class="reqInputData">*</span></label>
 																							<input class="form-control"
 																								formControlName="timing_periodUnit">
 																						</div>
@@ -779,10 +705,7 @@
 																						<div class="form-group">
 																							<label
 																								class="control-label">count
-																								<span style="color: red;
-									font-weight: bold;
-									margin-left: 3px;
-									font-size: 1.2em;">*</span>
+																								<span class="reqInputData">*</span>
 																							</label>
 																							<input class="form-control"
 																								formControlName="timing_count">

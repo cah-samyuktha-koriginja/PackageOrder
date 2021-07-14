@@ -1,13 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms'
+
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MasterServicesService } from '../../../../../services/master-services.service';
+
 import { PatientDetails, MedicationRequest, MedicationDispense, dosageInstruction, timing, lines } from '../../../../../models/patient-details.model';
+import { ErrorInterceptor } from 'src/app/core/interceptors/error.interceptor';
 
 @Component({
   selector: 'app-accounts-users-create',
   templateUrl: './accounts-users-create.component.html',
-  styleUrls: [],
+  styleUrls: ['./accounts-users-create.component.scss'],
   preserveWhitespaces: true,
   providers: [MasterServicesService, NgxSpinnerService]
 })
@@ -254,11 +257,10 @@ export class AccountsUsersCreateComponent implements OnInit {
   refreshToken() {
     //generate token
     this._APIMasters.getToken().subscribe((response: any) => {
-
-      this.token=response.access_token;
-      this.token="Bearer "+this.token;
-     });
-}
+      this.token = response.access_token;
+      this.token = "Bearer " + this.token;
+    });
+  }
 
 
   submitForm() {
@@ -311,8 +313,6 @@ export class AccountsUsersCreateComponent implements OnInit {
       lineData.MedicationRequest.Requestor.name.prefix = lineDetail.requestor_prefix;
       lineData.MedicationRequest.Requestor.name.suffix = lineDetail.requestor_suffix;
       lineData.MedicationRequest.Requestor.name.text = lineDetail.requestor_first_name + ' ' + lineDetail.requestor_middle_name + ' ' + lineDetail.requestor_last_name;
-      // lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_first_name);
-      // lineDetail.requestor_middle_name ? lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_middle_name) : '';
 
       lineData.MedicationRequest.Requestor.name.given = [];
       lineDetail.requestor_first_name ? lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_first_name) : '';
@@ -359,9 +359,6 @@ export class AccountsUsersCreateComponent implements OnInit {
           timingData.frequency = timingDetail.timing_frequency;
           timingData.period = timingDetail.timing_period;
           timingData.periodUnit = timingDetail.timing_periodUnit;
-          // timingDetail.timeOfDay.forEach(timeOfDayDet => {
-          //   timingData.timeOfDay.push(timeOfDayDet.timeOfDayDetails);
-          // });
           timingData.when = this.timeOfDayArray;
           timingData.dayOfWeek = this.dayOfWeekArray;
           dosageData.timing.push(timingData);
@@ -373,24 +370,19 @@ export class AccountsUsersCreateComponent implements OnInit {
       this.PatientDetailsForm.MedicationOrder.lines.push(lineData);
     });
     //Line Details Obj Defining Ends
-    console.log(this.PatientDetailsForm)
-    this._APIMasters.postPatient(this.PatientDetailsForm, this.token).subscribe(res => {
-      this.responseData = res;
-
-      this.statusMsg = this.responseData.status.message;
-
-      var self = this; setTimeout(() => { self.showMsg = false; this.initiateSubmitForm(); }, 20000);
-    }, error => {
-
-      var self = this; setTimeout(() => { self.showMsg = false; this.initiateSubmitForm(); }, 20000);
-      if (error.status == 0) {
-        this.response = { status: error.status, statusText: "Token Expired", colorCode: 'danger' };
+    this._APIMasters.postPatient(this.PatientDetailsForm, this.token).subscribe(
+      res => {
+        if (res) {
+          this.responseData = res;
+          this.statusMsg = this.responseData.status.message;
+          var self = this; setTimeout(() => { self.showMsg = false; this.initiateSubmitForm(); }, 15000);
+        }
+      },
+      err => {
+        var self = this; setTimeout(() => { self.showMsg = false; this.initiateSubmitForm(); }, 15000);
+        this.response = { statusText: err };
       }
-      else
-        this.response = { status: error.status, statusText: error.statusText, colorCode: 'danger' };
-
-      this.LoadingScreen(false);
-    });
+    );
   }
   LoadingScreen(e: any) { if (e) { this.spinner.show(); } else { this.spinner.hide(); } }
 
@@ -401,13 +393,13 @@ export class AccountsUsersCreateComponent implements OnInit {
 
     this.dayOfWeekArray = []
     this.dayOfWeek = '';
-    var str = new String('')
-    this.optionsDayOfWeek.forEach(x => {
-      if (x.isChecked) {
-        this.dayOfWeek += str.concat(x.name.toString() + ' | ')
+    this.optionsDayOfWeek.forEach(option => {
+      if (option.isChecked) {
+        this.dayOfWeek += option.name.toString() + ' | '
       }
 
     });
+
     this.dayOfWeek = this.dayOfWeek.slice(0, -3)
     this.dayOfWeekArray.push(this.dayOfWeek);
   }
@@ -417,9 +409,9 @@ export class AccountsUsersCreateComponent implements OnInit {
     this.optionsTimesOfDay[index].isChecked = eventTrgt;
 
     this.timeOfDayArray = [];
-    this.optionsTimesOfDay.forEach(x => {
-      if (x.isChecked) {
-        this.timeOfDayArray.push(x.name);
+    this.optionsTimesOfDay.forEach(option => {
+      if (option.isChecked) {
+        this.timeOfDayArray.push(option.name);
       }
     });
   }

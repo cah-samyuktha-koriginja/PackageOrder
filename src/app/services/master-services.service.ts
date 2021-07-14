@@ -33,6 +33,5 @@ export class MasterServicesService {
   postPatient(request, token) {
     const HeaderData = { headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization':token }) };
     return this._http.post('https://api.dev.cardinalhealth.com/wbd/order/api/v1/compliancePackageOrder/save' , request, HeaderData);
-
   }
 }

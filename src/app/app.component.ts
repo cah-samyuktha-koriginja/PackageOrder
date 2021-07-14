@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { MasterServicesService } from './services/master-services.service';
+
 @Component({
   selector: 'app-patientform-root',
   templateUrl: './app.component.html',
