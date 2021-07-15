@@ -7,7 +7,7 @@ applications:
    path: dist/wbd-support-order-placing
    timeout: 180
    env:
-      ENV: -dev
+      ENV: -prod
    buildpacks: 
     - nginx_buildpack
    

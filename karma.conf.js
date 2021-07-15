@@ -3,8 +3,11 @@
 
 module.exports = function (config) {
   config.set({
+    proxies: {
+      '/assets/': '/base/src/assets/'
+  },  
     basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    frameworks: ['jasmine', '@angular-devkit/build-angular', 'karma-typescript'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
@@ -13,20 +16,52 @@ module.exports = function (config) {
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
-      clearContext: false // leave Jasmine Spec Runner output visible in browser
+      clearContext: false, // leave Jasmine Spec Runner output visible in browser
+      jasmine: {
+        random: false,
+      }
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, './coverage/wbd-support-order-placing'),
       reports: ['html', 'lcovonly', 'text-summary'],
-      fixWebpackSourcePaths: true
+      fixWebpackSourcePaths: true,
+      thresholds: {
+        statements: 80,
+        lines: 80,
+        branches: 80,
+        functions: 80,
+      }
+    },
+    preprocessors: {
+      "**/*.ts": ["karma-typescript"]
+    },
+    karmaTypescriptConfig: {
+      reports:
+      {
+        "lcovonly": {
+          "directory": "coverage",
+          "filename": "lcov.info",
+          "subdirectory": "lcov"
+        }
+      }
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadlessNoSandbox'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-setuid-sandbox']
+      }
+    },
     singleRun: false,
+    captureTimeout: 21000000,
+    browserDisconnectTolerance: 3,
+    browserDisconnectTimeout: 21000000,
+    browserNoActivityTimeout: 21000000,
     restartOnFileChange: true
   });
 };
