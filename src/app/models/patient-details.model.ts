@@ -142,5 +142,7 @@ export class timing{
     frequency: number = null;
     period: number = null;
     periodUnit: string = null;
-    timeOfDay = new Array();
+    //timeOfDay = new Array();
+    when=new Array();
+    dayOfWeek=new Array();
 }

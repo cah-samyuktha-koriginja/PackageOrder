@@ -1,43 +1,63 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms'
+
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MasterServicesService } from '../../../../../services/master-services.service';
+
 import { PatientDetails, MedicationRequest, MedicationDispense, dosageInstruction, timing, lines } from '../../../../../models/patient-details.model';
 
 @Component({
   selector: 'app-accounts-users-create',
   templateUrl: './accounts-users-create.component.html',
-  styleUrls: [],
+  styleUrls: ['./accounts-users-create.component.scss'],
   preserveWhitespaces: true,
   providers: [MasterServicesService, NgxSpinnerService]
 })
 export class AccountsUsersCreateComponent implements OnInit {
   token = {} as any;
+  statusMsg: any = '';
+  responseData: any;
+  showMsg: boolean = true;
+  response: any;
+  dayOfWeek: any;
+
+  activeLineDetailsTab = 'lineDetails_0';
+  activeTimingDetailsTab = 'timingDetails_0';
+
+  optionsDayOfWeek = [{name: 'mon', isChecked: false},{name: 'tue', isChecked: false,}, { name: 'wed', isChecked: false}, { name: 'thu', isChecked: false}, { name: 'fri', isChecked: false}, { name: 'sat', isChecked: false }, { name: 'sun', isChecked: false}];
+  optionsTimesOfDay = [
+    { name: 'MORN', isChecked: false},
+    { name: 'NOON', isChecked: false},
+    { name: 'EVEN', isChecked: false},
+    { name: 'BEDTIME', isChecked: false}
+  ];
+
+  timeOfDayArray: Array<string> = [];
+  dayOfWeekArray: Array<string> = [];
+  timesOfDay: Array<string> = [];
+  daysOfWeek: Array<string> = [];
+
   PatientDetailsForm = new PatientDetails();
   MedicationRequest = new MedicationRequest();
   MedicationDispense = new MedicationDispense();
   SubmitForm: FormGroup;
-  activeLineDetailsTab = 'lineDetails_0';
-  activeTimingDetailsTab = 'timingDetails_0';
 
-  statusMsg:any='';
-  responseData:any;
-  public showMsg: boolean = true;  
-  response: any;
 
   constructor(private spinner: NgxSpinnerService,
     private _formBuilder: FormBuilder,
     private _APIMasters: MasterServicesService) {
     this.initiateSubmitForm();
   }
+
   ngOnInit(): void {
     this.refreshToken();
     this.addLineDetails();
   }
+
   initiateSubmitForm() {
-    this.showMsg=true;
-    this.statusMsg='';
-    this.response={ status: 100, statusText: 'Pending', colorCode:'info' };
+    this.showMsg = true;
+    this.statusMsg = '';
+    this.response = { status: 100, statusText: 'Pending', colorCode: 'info' };
 
     this.SubmitForm = this._formBuilder.group({
       identifier: ['af7816a4-3b87-41c4-91d5-f4f7a0369099'],
@@ -61,8 +81,8 @@ export class AccountsUsersCreateComponent implements OnInit {
       pharmacist_first_name: ['Robin'],
       pharmacist_middle_name: [''],
       pharmacist_last_name: ['Brown'],
-      pharmacist_prefix: [''],
-      pharmacist_suffix: [''],
+      pharmacist_prefix: ['Pharm. D.'],
+      pharmacist_suffix: ['Dr.'],
 
       medication_dispense_manifestId: ['9901'],
       medication_dispense_totalSyncedRX: 1,
@@ -113,16 +133,19 @@ export class AccountsUsersCreateComponent implements OnInit {
       warningDetails: this._formBuilder.array([this.newWarningDetails()]),
     })
   }
+
   addLineDetails() {
     this.lineDetails.push(this.newLineDetails());
     this.activeLineDetailsTab = 'lineDetails_' + (this.lineDetails.length - 1);
   }
+
   removeLineDetails(i: number) { this.lineDetails.removeAt(i); }
   //LINE Details Form Ends Here
 
 
   //Dosage Details Form Starts Here
   getDosageDetails(lineForm) { return lineForm.controls.dosageDetails.controls; }
+
   newDosageDetails(): FormGroup {
     return this._formBuilder.group({
       dosage_instructions_asNeededBoolean: 'false',
@@ -132,47 +155,56 @@ export class AccountsUsersCreateComponent implements OnInit {
       // timeOfDay: this._formBuilder.array([this.newTimeOfDayDetails()]),
     })
   }
+
   addDosageDetails(i) {
     const control = <FormArray>this.lineDetails.controls[i].get('dosageDetails');
     control.push(this.newDosageDetails());
   }
+
   removeDosageDetails(i: number, j: number) {
     const control = <FormArray>this.lineDetails.controls[i].get('dosageDetails');
     control.removeAt(j);
   }
+
   //Dosage Details Form Ends Here
 
   //Warning Details Form Starts Here
   getWarningDetails(lineForm) { return lineForm.controls.warningDetails.controls; }
+
   newWarningDetails(): FormGroup { return this._formBuilder.group({ warning: '' }) }
+
   addWarningDetails(i) {
     const control = <FormArray>this.lineDetails.controls[i].get('warningDetails');
     control.push(this.newWarningDetails());
   }
+
   removeWarningDetails(i: number, k: number) {
     const control = <FormArray>this.lineDetails.controls[i].get('warningDetails');
     control.removeAt(k);
   }
+
   //Warning Details Form Ends Here  
 
   //Timing Details Form Starts Here
   getTimingDetails(formDat) { return formDat.controls.timingDetails.controls; }
-  newTimingDetails(): FormGroup { 
+
+  newTimingDetails(): FormGroup {
     return this._formBuilder.group({
       timing_frequency: '1',
       timing_period: '1',
       timing_periodUnit: 'd',
       timing_count: '30',
-      timeOfDay: this._formBuilder.array([this.newTimeOfDayDetails()]),
+      //timeOfDay: this._formBuilder.array([this.newTimeOfDayDetails()]),
     })
   };
+
   addTimingDetails(i, j) {
     const control_1 = <FormArray>this.lineDetails.controls[i].get('dosageDetails');
     const control = <FormArray>control_1.controls[j].get('timingDetails');
     control.push(this.newTimingDetails());
     this.activeTimingDetailsTab = 'timingDetails_' + (control.length - 1);
-
   }
+
   removeTimingDetails(i: number, j: number, k: number) {
     const control = <FormArray>this.SubmitForm.get(['lineDetails', i, 'dosageDetails', j, 'timingDetails']);
     control.removeAt(k);
@@ -182,29 +214,61 @@ export class AccountsUsersCreateComponent implements OnInit {
 
   //Time Of Day Details Form Starts Here
   getTimeOfDayDetails(formDat) { return formDat.controls.timeOfDay.controls; }
-  newTimeOfDayDetails(): FormGroup { return this._formBuilder.group({ timeOfDayDetails: '08:00' }) };
-  addTimeOfDayDetails(i, j, k) {
-    const control_1 = <FormArray>this.lineDetails.controls[i].get('dosageDetails');
-    const control_2 = <FormArray>control_1.controls[j].get('timingDetails');
-    const control = <FormArray>control_2.controls[k].get('timeOfDay');
-    control.push(this.newTimeOfDayDetails());
-  }
+
+  //newTimeOfDayDetails(): FormGroup { return this._formBuilder.group({ timeOfDayDetails: '08:00' }) };
+
+  // addTimeOfDayDetails(i, j, k) {
+  //   const control_1 = <FormArray>this.lineDetails.controls[i].get('dosageDetails');
+  //   const control_2 = <FormArray>control_1.controls[j].get('timingDetails');
+  //   //const control = <FormArray>control_2.controls[k].get('timeOfDay');
+  //   //control.push(this.newTimeOfDayDetails());
+  // }
+
   removeTimeOfDayDetails(i: number, j: number, k: number, l: number) {
-    const control = <FormArray>this.SubmitForm.get(['lineDetails', i, 'dosageDetails', j, 'timingDetails', k, 'timeOfDay']);
+    const control = <FormArray>this.SubmitForm.get(['lineDetails', i, 'dosageDetails', j, 'timingDetails', k]);
     control.removeAt(l);
   }
   //Time Of Day Details Form Ends Here  
 
-  refreshToken(){
+  //Checkbox value change for Time & Day fo the Week
+  changeDaySelection(event: any, item: any, eventTrgt: any) {
+    const index = this.optionsDayOfWeek.findIndex(e => e.name === item.name);
+    this.optionsDayOfWeek[index].isChecked = eventTrgt;
+
+    this.dayOfWeekArray = []
+    this.dayOfWeek = '';
+    this.optionsDayOfWeek.forEach(option => {
+      if (option.isChecked) {
+        this.dayOfWeek += option.name.toString() + ' | '
+      }
+
+    });
+
+    this.dayOfWeek = this.dayOfWeek.slice(0, -3)
+    this.dayOfWeekArray.push(this.dayOfWeek);
+  }
+
+  changeTimeSelection(event: any, item: any, eventTrgt: any) {
+    const index = this.optionsTimesOfDay.findIndex(e => e.name === item.name);
+    this.optionsTimesOfDay[index].isChecked = eventTrgt;
+
+    this.timeOfDayArray = [];
+    this.optionsTimesOfDay.forEach(option => {
+      if (option.isChecked) {
+        this.timeOfDayArray.push(option.name);
+      }
+    });
+  }
+
+  refreshToken() {
     //generate token
     this._APIMasters.getToken().subscribe((response: any) => {
+      this.token = response.access_token;
+      this.token = "Bearer " + this.token;
+    });
+  }
 
-      this.token=response.access_token;
-      this.token="Bearer "+this.token;
-      console.log(this.token)
-     });
-}
-
+  //On Submit Click
   submitForm() {
     const requestObj = this.SubmitForm.value;
     this.PatientDetailsForm.focus.identifier = requestObj.identifier;
@@ -217,7 +281,9 @@ export class AccountsUsersCreateComponent implements OnInit {
     this.PatientDetailsForm.patient.name.suffix = requestObj.suffix;
     this.PatientDetailsForm.patient.name.family = requestObj.last_name;
     this.PatientDetailsForm.patient.name.text = requestObj.first_name + ' ' + requestObj.middle_name + ' ' + requestObj.last_name;
-    this.PatientDetailsForm.patient.name.given.push(requestObj.first_name);
+    this.PatientDetailsForm.patient.name.given = [];
+
+    requestObj.first_name ? this.PatientDetailsForm.patient.name.given.push(requestObj.first_name) : '';
     requestObj.middle_name ? this.PatientDetailsForm.patient.name.given.push(requestObj.middle_name) : '';
 
     this.PatientDetailsForm.patient.address.line.push(requestObj.line_1);
@@ -231,7 +297,7 @@ export class AccountsUsersCreateComponent implements OnInit {
     this.PatientDetailsForm.Pharmacist.name.prefix = requestObj.pharmacist_prefix;
     this.PatientDetailsForm.Pharmacist.name.suffix = requestObj.pharmacist_suffix;
     this.PatientDetailsForm.Pharmacist.name.family = requestObj.pharmacist_last_name;
-    this.PatientDetailsForm.Pharmacist.name.given=[];
+    this.PatientDetailsForm.Pharmacist.name.given = [];
     requestObj.pharmacist_first_name ? this.PatientDetailsForm.Pharmacist.name.given.push(requestObj.pharmacist_first_name) : '';
 
     requestObj.pharmacist_middle_name ? this.PatientDetailsForm.Pharmacist.name.given.push(requestObj.pharmacist_middle_name) : '';
@@ -253,7 +319,9 @@ export class AccountsUsersCreateComponent implements OnInit {
       lineData.MedicationRequest.Requestor.name.prefix = lineDetail.requestor_prefix;
       lineData.MedicationRequest.Requestor.name.suffix = lineDetail.requestor_suffix;
       lineData.MedicationRequest.Requestor.name.text = lineDetail.requestor_first_name + ' ' + lineDetail.requestor_middle_name + ' ' + lineDetail.requestor_last_name;
-      lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_first_name);
+
+      lineData.MedicationRequest.Requestor.name.given = [];
+      lineDetail.requestor_first_name ? lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_first_name) : '';
       lineDetail.requestor_middle_name ? lineData.MedicationRequest.Requestor.name.given.push(lineDetail.requestor_middle_name) : '';
 
       lineData.MedicationRequest.Requestor.address.city = lineDetail.requestor_city;
@@ -297,9 +365,8 @@ export class AccountsUsersCreateComponent implements OnInit {
           timingData.frequency = timingDetail.timing_frequency;
           timingData.period = timingDetail.timing_period;
           timingData.periodUnit = timingDetail.timing_periodUnit;
-          timingDetail.timeOfDay.forEach(timeOfDayDet => {
-            timingData.timeOfDay.push(timeOfDayDet.timeOfDayDetails);
-          });
+          timingData.when = this.timeOfDayArray;
+          timingData.dayOfWeek = this.dayOfWeekArray;
           dosageData.timing.push(timingData);
         });
         lineData.MedicationDispense.dosageInstruction.push(dosageData);
@@ -309,17 +376,24 @@ export class AccountsUsersCreateComponent implements OnInit {
       this.PatientDetailsForm.MedicationOrder.lines.push(lineData);
     });
     //Line Details Obj Defining Ends
-
-    this._APIMasters.postPatient(this.PatientDetailsForm, this.token).subscribe(res => {
-      this.responseData=res;
-      this.statusMsg=this.responseData.status.message;
-
-      var self=this; setTimeout(() => { self.showMsg = false;this.initiateSubmitForm(); }, 5000); 
-     }, error => { 
-     var self=this; setTimeout(() => { self.showMsg = false;  this.initiateSubmitForm();}, 5000);
-     this.response = { status: error.status, statusText: error.statusText, colorCode:'danger' };
-    
-     this.LoadingScreen(false); });
+    console.log(this.PatientDetailsForm)
+    this._APIMasters.postPatient(this.PatientDetailsForm, this.token).subscribe(
+      res => {
+        if (res) {
+          this.responseData = res;
+          this.statusMsg = this.responseData.status.message;
+          var self = this; setTimeout(() => { self.showMsg = false; this.initiateSubmitForm(); }, 15000);
+        }
+      },
+      err => {
+        var self = this; setTimeout(() => { self.showMsg = false; this.initiateSubmitForm(); }, 15000);
+        this.response = { statusText: err };
+      }
+    );
   }
   LoadingScreen(e: any) { if (e) { this.spinner.show(); } else { this.spinner.hide(); } }
+
+
+
+
 }

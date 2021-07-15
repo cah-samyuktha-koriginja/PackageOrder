@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "nobleui-angular": {
+    "wbd-support-order-placing": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -71,19 +71,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "nobleui-angular:build",
-            "proxyConfig": "./proxy.conf.json"
+            "browserTarget": "wbd-support-order-placing:build",
+            "port": 6001
           },
           "configurations": {
             "production": {
-              "browserTarget": "nobleui-angular:build:production"
+              "browserTarget": "wbd-support-order-placing:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nobleui-angular:build"
+            "browserTarget": "wbd-support-order-placing:build"
           }
         },
         "test": {
@@ -120,11 +120,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "nobleui-angular:serve"
+            "devServerTarget": "wbd-support-order-placing:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "nobleui-angular:serve:production"
+              "devServerTarget": "wbd-support-order-placing:serve:production"
             }
           }
         }
@@ -133,6 +133,6 @@
   },
   "defaultProject": "wbd-support-order-placing",
   "cli": {
-    "analytics": false
+    "analytics": "7782b746-8eb1-48ad-b529-167ba3b3ef2c"
   }
 }
